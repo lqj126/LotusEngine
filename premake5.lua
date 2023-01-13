@@ -12,6 +12,7 @@ workspace "Lotus" --解决方案名称
 --详细的所有支持的tokens 可参考 [https://github.com/premake/premake-core/wiki/Tokens]
 outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
+
 project "Lotus" --项目名称
     location "Lotus" --相对路径
     kind "SharedLib" --表明该项目是dll动态库
