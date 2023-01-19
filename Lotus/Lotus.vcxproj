@@ -149,6 +149,8 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="src\Lotus\Layer.h" />
+    <ClInclude Include="src\Lotus\LayerStack.h" />
     <ClInclude Include="src\Lotus.h" />
     <ClInclude Include="src\Lotus\Application.h" />
     <ClInclude Include="src\Lotus\Core.h" />
@@ -164,6 +166,8 @@
     <ClInclude Include="src\ltpch.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Lotus\Layer.cpp" />
+    <ClCompile Include="src\Lotus\LayerStack.cpp" />
     <ClCompile Include="src\Lotus\Application.cpp" />
     <ClCompile Include="src\Lotus\Log.cpp" />
     <ClCompile Include="src\Platform\Windows\WindowsWindow.cpp" />
