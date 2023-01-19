@@ -1,8 +1,5 @@
 #pragma once
-
-#include <sstream>
-#include <functional>
-
+#include "ltpch.h"
 #include "Lotus/Core.h"
 
 namespace Lotus {

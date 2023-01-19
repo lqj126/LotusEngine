@@ -11,7 +11,12 @@ workspace "Lotus" --解决方案名称
 --临时变量 定义 输出目录
 --详细的所有支持的tokens 可参考 [https://github.com/premake/premake-core/wiki/Tokens]
 outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
+  
+-- Include directories relative to root folder (solution directory)
+IncludeDir = {}
+IncludeDir["GLFW"] = "Lotus/vendor/GLFW/include"
 
+include "Lotus/vendor/GLFW"
 
 project "Lotus" --项目名称
     location "Lotus" --相对路径
@@ -21,6 +26,9 @@ project "Lotus" --项目名称
     targetdir ("bin/" .. outputdir .. "/%{prj.name}")--输出目录
     objdir ("bin-int/" .. outputdir .. "/%{prj.name}")--中间临时文件的目录
 
+    pchheader "ltpch.h"
+    pchsource "Lotus/src/ltpch.cpp"
+
     files--该项目的文件
     {
         "%{prj.name}/src/**.h",
@@ -28,9 +36,16 @@ project "Lotus" --项目名称
     }
 
     includedirs--附加包含目录
-    {
+    { 
         "%{prj.name}/src",
-        "%{prj.name}/vendor/spdlog/include"
+        "%{prj.name}/vendor/spdlog/include",
+		"%{IncludeDir.GLFW}"
+    }
+	
+	links
+    {
+        "GLFW",
+        "opengl32.lib"
     }
 
     filter "system:windows"--windows平台的配置
