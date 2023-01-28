@@ -7,8 +7,7 @@
 #include "Lotus/Events/Event.h"
 #include "Lotus/Events/ApplicationEvent.h"
 
-
-namespace Lotus{
+namespace Lotus {
 
 	class LOTUS_API Application
 	{
@@ -23,14 +22,14 @@ namespace Lotus{
 		void PushLayer(Layer* layer);
 		void PushOverlay(Layer* layer);
 	private:
-		bool OnwindowClose(WindowCloseEvent& e);
-
+		bool OnWindowClose(WindowCloseEvent& e);
 
 		std::unique_ptr<Window> m_Window;
 		bool m_Running = true;
 		LayerStack m_LayerStack;
 	};
-	//To be defined in CLIENT
-	Application* CreateApplication();
-}
 
+	// To be defined in CLIENT
+	Application* CreateApplication();
+
+}

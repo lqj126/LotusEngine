@@ -6,12 +6,11 @@ public:
 	ExampleLayer()
 		: Layer("Example")
 	{
-
 	}
 
 	void OnUpdate() override
 	{
-		LT_INFO("ExampleLayer::OnUpdate");
+		LT_INFO("ExampleLayer::Update");
 	}
 
 	void OnEvent(Lotus::Event& event) override
@@ -28,7 +27,7 @@ public:
 	{
 		PushLayer(new ExampleLayer());
 	}
-	
+
 	~Sandbox()
 	{
 

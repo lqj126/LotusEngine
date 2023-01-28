@@ -1,19 +1,22 @@
 #include "ltpch.h"
 #include "Application.h"
 
-#include "Lotus/Events/ApplicationEvent.h"
-#include "Lotus/log.h"
-#include "GLFW/glfw3.h"
+#include "Lotus/Log.h"
+
+#include <GLFW/glfw3.h>
 
 namespace Lotus {
+
+	#define BIND_EVENT_FN(x) std::bind(&Application::x, this, std::placeholders::_1)
+
 	Application::Application()
 	{
 		m_Window = std::unique_ptr<Window>(Window::Create());
+		m_Window->SetEventCallback(BIND_EVENT_FN(OnEvent));				//*********
 	}
 
 	Application::~Application()
 	{
-
 	}
 
 	void Application::PushLayer(Layer* layer)
@@ -25,15 +28,13 @@ namespace Lotus {
 	{
 		m_LayerStack.PushOverlay(layer);
 	}
-	
+
 	void Application::OnEvent(Event& e)
 	{
 		EventDispatcher dispatcher(e);
-		//dispatcher.Dispatch<WindowCloseEvent>(BIND_EVENT_FN(OnwindowClose));
+		dispatcher.Dispatch<WindowCloseEvent>(BIND_EVENT_FN(OnWindowClose));
 
-		LT_CORE_TRACE("{0}", e);
-
-		for (auto it = m_LayerStack.end(); it != m_LayerStack.begin();)
+		for (auto it = m_LayerStack.end(); it != m_LayerStack.begin(); )
 		{
 			(*--it)->OnEvent(e);
 			if (e.Handled)
@@ -43,7 +44,7 @@ namespace Lotus {
 
 	void Application::Run()
 	{
-		while (m_Running);
+		while (m_Running)
 		{
 			glClearColor(1, 0, 1, 1);
 			glClear(GL_COLOR_BUFFER_BIT);
@@ -54,9 +55,11 @@ namespace Lotus {
 			m_Window->OnUpdate();
 		}
 	}
-	bool Application::OnwindowClose(WindowCloseEvent& e)
+
+	bool Application::OnWindowClose(WindowCloseEvent& e)
 	{
 		m_Running = false;
 		return true;
 	}
+
 }

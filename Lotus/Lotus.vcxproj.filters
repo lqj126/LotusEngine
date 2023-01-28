@@ -43,6 +43,12 @@
     <ClInclude Include="src\Lotus\Events\MouseEvent.h">
       <Filter>Lotus\Events</Filter>
     </ClInclude>
+    <ClInclude Include="src\Lotus\Layer.h">
+      <Filter>Lotus</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Lotus\LayerStack.h">
+      <Filter>Lotus</Filter>
+    </ClInclude>
     <ClInclude Include="src\Lotus\Log.h">
       <Filter>Lotus</Filter>
     </ClInclude>
@@ -53,15 +59,15 @@
       <Filter>Platform\Windows</Filter>
     </ClInclude>
     <ClInclude Include="src\ltpch.h" />
-    <ClInclude Include="src\Lotus\Layer.h">
-      <Filter>Lotus</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Lotus\LayerStack.h">
-      <Filter>Lotus</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Lotus\Application.cpp">
+      <Filter>Lotus</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Lotus\Layer.cpp">
+      <Filter>Lotus</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Lotus\LayerStack.cpp">
       <Filter>Lotus</Filter>
     </ClCompile>
     <ClCompile Include="src\Lotus\Log.cpp">
@@ -71,11 +77,5 @@
       <Filter>Platform\Windows</Filter>
     </ClCompile>
     <ClCompile Include="src\ltpch.cpp" />
-    <ClCompile Include="src\Lotus\Layer.cpp">
-      <Filter>Lotus</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Lotus\LayerStack.cpp">
-      <Filter>Lotus</Filter>
-    </ClCompile>
   </ItemGroup>
 </Project>

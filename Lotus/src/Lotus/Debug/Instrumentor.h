@@ -61,7 +61,7 @@ namespace Lotus {
 			{
 				if (Log::GetCoreLogger()) // Edge case: BeginSession() might be before Log::Init()
 				{
-					HZ_CORE_ERROR("Instrumentor could not open results file '{0}'.", filepath);
+					LT_CORE_ERROR("Instrumentor could not open results file '{0}'.", filepath);
 				}
 			}
 		}
@@ -233,9 +233,9 @@ namespace Lotus {
 	#define LT_PROFILE_SCOPE(name) LT_PROFILE_SCOPE_LINE(name, __LINE__)
 	#define LT_PROFILE_FUNCTION() LT_PROFILE_SCOPE(LT_FUNC_SIG)
 #else
-	#define HZ_PROFILE_BEGIN_SESSION(name, filepath)
-	#define HZ_PROFILE_END_SESSION()
-	#define HZ_PROFILE_SCOPE(name)
-	#define HZ_PROFILE_FUNCTION()
+	#define LT_PROFILE_BEGIN_SESSION(name, filepath)
+	#define LT_PROFILE_END_SESSION()
+	#define LT_PROFILE_SCOPE(name)
+	#define LT_PROFILE_FUNCTION()
 #endif
 */
