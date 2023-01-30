@@ -15,8 +15,10 @@ outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 -- Include directories relative to root folder (solution directory)
 IncludeDir = {}
 IncludeDir["GLFW"] = "Lotus/vendor/GLFW/include"
+IncludeDir["Glad"] = "Lotus/vendor/Glad/include"
 
 include "Lotus/vendor/GLFW"
+include "Lotus/vendor/Glad"
 
 project "Lotus" --项目名称
     location "Lotus" --相对路径
@@ -39,12 +41,14 @@ project "Lotus" --项目名称
     { 
         "%{prj.name}/src",
         "%{prj.name}/vendor/spdlog/include",
-		"%{IncludeDir.GLFW}"
+		"%{IncludeDir.GLFW}",
+		"%{IncludeDir.Glad}"
     }
 	
 	links
     {
         "GLFW",
+		"Glad",
         "opengl32.lib"
     }
 
@@ -57,9 +61,7 @@ project "Lotus" --项目名称
         {
             "LT_BUILD_DLL",
             "LT_PLATFORM_WINDOWS",
-            "_WINDLL",
-            "_UNICODE",
-            "UNICODE",
+            "GLFW_INCLUDE_NONE"
         }
 
         postbuildcommands -- build后的自定义命令
