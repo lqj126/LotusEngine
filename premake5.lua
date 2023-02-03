@@ -16,9 +16,11 @@ outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 IncludeDir = {}
 IncludeDir["GLFW"] = "Lotus/vendor/GLFW/include"
 IncludeDir["Glad"] = "Lotus/vendor/Glad/include"
+IncludeDir["ImGui"] = "Lotus/vendor/imgui"
 
 include "Lotus/vendor/GLFW"
 include "Lotus/vendor/Glad"
+include "Lotus/vendor/imgui"
 
 project "Lotus" --项目名称
     location "Lotus" --相对路径
@@ -42,13 +44,15 @@ project "Lotus" --项目名称
         "%{prj.name}/src",
         "%{prj.name}/vendor/spdlog/include",
 		"%{IncludeDir.GLFW}",
-		"%{IncludeDir.Glad}"
+		"%{IncludeDir.Glad}",
+		"%{IncludeDir.ImGui}"
     }
 	
 	links
     {
         "GLFW",
 		"Glad",
+		"ImGui",
         "opengl32.lib"
     }
 

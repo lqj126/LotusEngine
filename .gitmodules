@@ -4,3 +4,6 @@
 [submodule "Lotus/vendor/GLFW"]
 	path = Lotus/vendor/GLFW
 	url = https://github.com/TheCherno/glfw
+[submodule "Lotus/vendor/imgui"]
+	path = Lotus/vendor/imgui
+	url = https://github.com/lqj126/imgui

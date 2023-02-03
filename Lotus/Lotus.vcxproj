@@ -80,7 +80,7 @@
       <PrecompiledHeaderFile>ltpch.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>LT_BUILD_DLL;LT_PLATFORM_WINDOWS;GLFW_INCLUDE_NONE;LT_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>src;vendor\spdlog\include;vendor\GLFW\include;vendor\Glad\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>src;vendor\spdlog\include;vendor\GLFW\include;vendor\Glad\include;vendor\imgui;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
@@ -103,7 +103,7 @@
       <PrecompiledHeaderFile>ltpch.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>LT_BUILD_DLL;LT_PLATFORM_WINDOWS;GLFW_INCLUDE_NONE;LT_RELEASE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>src;vendor\spdlog\include;vendor\GLFW\include;vendor\Glad\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>src;vendor\spdlog\include;vendor\GLFW\include;vendor\Glad\include;vendor\imgui;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
@@ -130,7 +130,7 @@
       <PrecompiledHeaderFile>ltpch.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>LT_BUILD_DLL;LT_PLATFORM_WINDOWS;GLFW_INCLUDE_NONE;LT_DIST;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>src;vendor\spdlog\include;vendor\GLFW\include;vendor\Glad\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>src;vendor\spdlog\include;vendor\GLFW\include;vendor\Glad\include;vendor\imgui;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
@@ -161,18 +161,22 @@
     <ClInclude Include="src\Lotus\Events\Event.h" />
     <ClInclude Include="src\Lotus\Events\KeyEvent.h" />
     <ClInclude Include="src\Lotus\Events\MouseEvent.h" />
+    <ClInclude Include="src\Lotus\ImGui\ImGuiLayer.h" />
     <ClInclude Include="src\Lotus\Layer.h" />
     <ClInclude Include="src\Lotus\LayerStack.h" />
     <ClInclude Include="src\Lotus\Log.h" />
     <ClInclude Include="src\Lotus\Window.h" />
+    <ClInclude Include="src\Platform\OpenGL\ImGuiOpenGLRenderer.h" />
     <ClInclude Include="src\Platform\Windows\WindowsWindow.h" />
     <ClInclude Include="src\ltpch.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Lotus\Application.cpp" />
+    <ClCompile Include="src\Lotus\ImGui\ImGuiLayer.cpp" />
     <ClCompile Include="src\Lotus\Layer.cpp" />
     <ClCompile Include="src\Lotus\LayerStack.cpp" />
     <ClCompile Include="src\Lotus\Log.cpp" />
+    <ClCompile Include="src\Platform\OpenGL\ImGuiOpenGLRenderer.cpp" />
     <ClCompile Include="src\Platform\Windows\WindowsWindow.cpp" />
     <ClCompile Include="src\ltpch.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>
@@ -184,6 +188,9 @@
     </ProjectReference>
     <ProjectReference Include="vendor\Glad\GLAD.vcxproj">
       <Project>{5D4A857C-4981-860D-F26D-6C10DE83020F}</Project>
+    </ProjectReference>
+    <ProjectReference Include="vendor\imgui\ImGui.vcxproj">
+      <Project>{C0FF640D-2C14-8DBE-F595-301E616989EF}</Project>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
