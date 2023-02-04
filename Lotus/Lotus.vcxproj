@@ -162,11 +162,13 @@
     <ClInclude Include="src\Lotus\Events\KeyEvent.h" />
     <ClInclude Include="src\Lotus\Events\MouseEvent.h" />
     <ClInclude Include="src\Lotus\ImGui\ImGuiLayer.h" />
+    <ClInclude Include="src\Lotus\Input.h" />
     <ClInclude Include="src\Lotus\Layer.h" />
     <ClInclude Include="src\Lotus\LayerStack.h" />
     <ClInclude Include="src\Lotus\Log.h" />
     <ClInclude Include="src\Lotus\Window.h" />
     <ClInclude Include="src\Platform\OpenGL\ImGuiOpenGLRenderer.h" />
+    <ClInclude Include="src\Platform\Windows\WindowsInput.h" />
     <ClInclude Include="src\Platform\Windows\WindowsWindow.h" />
     <ClInclude Include="src\ltpch.h" />
   </ItemGroup>
@@ -177,6 +179,7 @@
     <ClCompile Include="src\Lotus\LayerStack.cpp" />
     <ClCompile Include="src\Lotus\Log.cpp" />
     <ClCompile Include="src\Platform\OpenGL\ImGuiOpenGLRenderer.cpp" />
+    <ClCompile Include="src\Platform\Windows\WindowsInput.cpp" />
     <ClCompile Include="src\Platform\Windows\WindowsWindow.cpp" />
     <ClCompile Include="src\ltpch.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>
