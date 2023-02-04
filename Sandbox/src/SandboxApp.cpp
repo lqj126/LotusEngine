@@ -10,12 +10,19 @@ public:
 
 	void OnUpdate() override
 	{
-		LT_INFO("ExampleLayer::Update");
+		if (Lotus::Input::IsKeyPressed(LT_KEY_TAB))
+			LT_TRACE("Tab key is pressed (poll)!");
 	}
 
 	void OnEvent(Lotus::Event& event) override
 	{
-		LT_TRACE("{0}", event);
+		if (event.GetEventType() == Lotus::EventType::KeyPressed)
+		{
+			Lotus::KeyPressedEvent& e = (Lotus::KeyPressedEvent&)event;
+			if (e.GetKeyCode() == LT_KEY_TAB)
+				LT_TRACE("Tab key is pressed (event)!");
+			LT_TRACE("{0}", (char)e.GetKeyCode());
+		}
 	}
 
 };

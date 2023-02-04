@@ -6,6 +6,10 @@
 #include "Lotus/Layer.h"
 #include "Lotus/Log.h"
 
+#include "Lotus/Input.h"
+#include "Lotus/KeyCodes.h"
+#include "Lotus/MouseButtonCodes.h"
+
 #include "Lotus/ImGui/ImGuiLayer.h"
 
 //-------Entry Point------

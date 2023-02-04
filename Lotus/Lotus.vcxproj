@@ -163,9 +163,11 @@
     <ClInclude Include="src\Lotus\Events\MouseEvent.h" />
     <ClInclude Include="src\Lotus\ImGui\ImGuiLayer.h" />
     <ClInclude Include="src\Lotus\Input.h" />
+    <ClInclude Include="src\Lotus\KeyCodes.h" />
     <ClInclude Include="src\Lotus\Layer.h" />
     <ClInclude Include="src\Lotus\LayerStack.h" />
     <ClInclude Include="src\Lotus\Log.h" />
+    <ClInclude Include="src\Lotus\MouseButtonCodes.h" />
     <ClInclude Include="src\Lotus\Window.h" />
     <ClInclude Include="src\Platform\OpenGL\ImGuiOpenGLRenderer.h" />
     <ClInclude Include="src\Platform\Windows\WindowsInput.h" />

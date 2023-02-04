@@ -73,6 +73,8 @@
     <ClInclude Include="src\ltpch.h" />
     <ClInclude Include="src\Lotus\Input.h" />
     <ClInclude Include="src\Platform\Windows\WindowsInput.h" />
+    <ClInclude Include="src\Lotus\KeyCodes.h" />
+    <ClInclude Include="src\Lotus\MouseButtonCodes.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Lotus\Application.cpp">
