@@ -7,3 +7,6 @@
 [submodule "Lotus/vendor/imgui"]
 	path = Lotus/vendor/imgui
 	url = https://github.com/lqj126/imgui
+[submodule "Lotus/vendor/glm"]
+	path = Lotus/vendor/glm
+	url = https://github.com/g-truc/glm
