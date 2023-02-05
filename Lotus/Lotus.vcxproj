@@ -79,7 +79,7 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>ltpch.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
-      <PreprocessorDefinitions>LT_BUILD_DLL;LT_PLATFORM_WINDOWS;GLFW_INCLUDE_NONE;LT_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>IMGUI_API=__declspec(dllexport);LT_BUILD_DLL;LT_PLATFORM_WINDOWS;GLFW_INCLUDE_NONE;LT_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>src;vendor\spdlog\include;vendor\GLFW\include;vendor\Glad\include;vendor\imgui;vendor\glm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
@@ -169,7 +169,6 @@
     <ClInclude Include="src\Lotus\Log.h" />
     <ClInclude Include="src\Lotus\MouseButtonCodes.h" />
     <ClInclude Include="src\Lotus\Window.h" />
-    <ClInclude Include="src\Platform\OpenGL\ImGuiOpenGLRenderer.h" />
     <ClInclude Include="src\Platform\Windows\WindowsInput.h" />
     <ClInclude Include="src\Platform\Windows\WindowsWindow.h" />
     <ClInclude Include="src\ltpch.h" />
@@ -592,11 +591,11 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Lotus\Application.cpp" />
+    <ClCompile Include="src\Lotus\ImGui\ImGuiBuild.cpp" />
     <ClCompile Include="src\Lotus\ImGui\ImGuiLayer.cpp" />
     <ClCompile Include="src\Lotus\Layer.cpp" />
     <ClCompile Include="src\Lotus\LayerStack.cpp" />
     <ClCompile Include="src\Lotus\Log.cpp" />
-    <ClCompile Include="src\Platform\OpenGL\ImGuiOpenGLRenderer.cpp" />
     <ClCompile Include="src\Platform\Windows\WindowsInput.cpp" />
     <ClCompile Include="src\Platform\Windows\WindowsWindow.cpp" />
     <ClCompile Include="src\ltpch.cpp">

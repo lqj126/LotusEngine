@@ -1,5 +1,7 @@
 #include <Lotus.h>
 
+#include "imgui/imgui.h"
+
 class ExampleLayer : public Lotus::Layer
 {
 public:
@@ -13,6 +15,14 @@ public:
 		if (Lotus::Input::IsKeyPressed(LT_KEY_TAB))
 			LT_TRACE("Tab key is pressed (poll)!");
 	}
+
+	virtual void OnImGuiRender() override
+	{
+		ImGui::Begin("Test");
+		ImGui::Text("Hello World");
+		ImGui::End();
+	}
+
 
 	void OnEvent(Lotus::Event& event) override
 	{
@@ -33,7 +43,6 @@ public:
 	Sandbox()
 	{
 		PushLayer(new ExampleLayer());
-		PushOverlay(new Lotus::ImGuiLayer());
 	}
 
 	~Sandbox()

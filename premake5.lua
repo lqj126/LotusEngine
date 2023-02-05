@@ -114,6 +114,7 @@ project "Sandbox"
     {
         "Lotus/vendor/spdlog/include",
         "Lotus/src",
+        "Lotus/vendor",
 		"%{IncludeDir.glm}"
     }
 

@@ -7,6 +7,8 @@
 #include "Lotus/Events/Event.h"
 #include "Lotus/Events/ApplicationEvent.h"
 
+#include "Lotus/ImGui/ImGuiLayer.h"
+
 namespace Lotus {
 
 	class LOTUS_API Application
@@ -29,6 +31,7 @@ namespace Lotus {
 		bool OnWindowClose(WindowCloseEvent& e);
 
 		std::unique_ptr<Window> m_Window;
+		ImGuiLayer* m_ImGuiLayer;
 		bool m_Running = true;
 		LayerStack m_LayerStack;
 	private:
