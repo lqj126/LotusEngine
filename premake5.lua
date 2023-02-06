@@ -25,8 +25,9 @@ include "Lotus/vendor/imgui"
 
 project "Lotus" --项目名称
     location "Lotus" --相对路径
-    kind "SharedLib" --表明该项目是dll动态库
-    language "c++"
+    kind "StaticLib" --表明该项目是dll动态库
+	cppdialect "C++17"
+	staticruntime "on"
 
     targetdir ("bin/" .. outputdir .. "/%{prj.name}")--输出目录
     objdir ("bin-int/" .. outputdir .. "/%{prj.name}")--中间临时文件的目录
@@ -41,6 +42,11 @@ project "Lotus" --项目名称
 		"%{prj.name}/vendor/glm/glm/**.hpp",
 		"%{prj.name}/vendor/glm/glm/**.inl",
     }
+	
+		defines
+	{
+		"_CRT_SECURE_NO_WARNINGS"
+	}
 
     includedirs--附加包含目录
     { 
@@ -61,45 +67,36 @@ project "Lotus" --项目名称
     }
 
     filter "system:windows"--windows平台的配置
-        cppdialect "c++17"
-        staticruntime "On"  
         systemversion "latest"
 
         defines --预编译宏
         {
-            "LT_BUILD_DLL",
-            "LT_PLATFORM_WINDOWS",
+			"LT_PLATFORM_WINDOWS",
+			"LT_BUILD_DLL",
             "GLFW_INCLUDE_NONE"
-        }
-
-        postbuildcommands -- build后的自定义命令
-        {
-            ("{COPY} %{cfg.buildtarget.relpath} \"../bin/" .. outputdir .. "/Sandbox/\"") --拷贝引擎dll库到sanbox.exe的同一目录下去
-            --"{COPY} %{cfg.objdir}/output.map %{cfg.targetdir}"
         }
 
     filter "configurations:Debug"
         defines "LT_DEBUG"
         runtime "Debug"
-        buildoptions "/MDd"
         symbols "on"
 
     filter "configurations:Release"
         defines "LT_RELEASE"
         runtime "Release"
-        buildoptions "/MD"
         optimize "on"
 
     filter "configurations:Dist"
         defines "LT_DIST"
         runtime "Release"
-        buildoptions "/MD"
         optimize "on"
 
 project "Sandbox"
     location "Sandbox"
     kind "ConsoleApp"
-    language "c++"
+	language "C++"
+	cppdialect "C++17"
+	staticruntime "on"
 
     targetdir ("bin/" .. outputdir .. "/%{prj.name}")
     objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
@@ -124,31 +121,24 @@ project "Sandbox"
     }
 
     filter "system:windows"
-        cppdialect "c++17"
-        staticruntime "On"
         systemversion "latest"
 
-        defines
-        {
-            "LT_PLATFORM_WINDOWS",
-            "_UNICODE",
-            "UNICODE",
-        }
+		defines
+		{
+			"LT_PLATFORM_WINDOWS"
+		}
 
     filter "configurations:Debug"
         defines "LT_DEBUG"
         runtime "Debug"
-        buildoptions "/MDd"
         symbols "on"
 
     filter "configurations:Release"
         defines "LT_RELEASE"
         runtime "Release"
-        buildoptions "/MD"
         optimize "on"
 
     filter "configurations:Dist"
         defines "LT_DIST"
         runtime "Release"
-        buildoptions "/MD"
         optimize "on"

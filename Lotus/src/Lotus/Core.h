@@ -1,10 +1,14 @@
 #pragma once
 
 #ifdef LT_PLATFORM_WINDOWS
+#if LT_DYNAMIC_LINK
 	#ifdef LT_BUILD_DLL
 		#define LOTUS_API __declspec(dllexport)
+	#else
+		#define LOTUS_API __declspec(dllimport)
+	#endif
 #else
-	#define LOTUS_API __declspec(dllimport)
+	    #define LOTUS_API
 #endif
 #else
 	#error Lotus only supports Windows!
