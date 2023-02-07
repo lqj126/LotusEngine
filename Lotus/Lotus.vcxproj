@@ -157,6 +157,7 @@
     <ClInclude Include="src\Lotus\Log.h" />
     <ClInclude Include="src\Lotus\MouseButtonCodes.h" />
     <ClInclude Include="src\Lotus\Renderer\GraphicsContext.h" />
+    <ClInclude Include="src\Lotus\Renderer\Shader.h" />
     <ClInclude Include="src\Lotus\Window.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLContext.h" />
     <ClInclude Include="src\Platform\Windows\WindowsInput.h" />
@@ -586,6 +587,7 @@
     <ClCompile Include="src\Lotus\Layer.cpp" />
     <ClCompile Include="src\Lotus\LayerStack.cpp" />
     <ClCompile Include="src\Lotus\Log.cpp" />
+    <ClCompile Include="src\Lotus\Renderer\Shader.cpp" />
     <ClCompile Include="src\Platform\OpenGL\OpenGLContext.cpp" />
     <ClCompile Include="src\Platform\Windows\WindowsInput.cpp" />
     <ClCompile Include="src\Platform\Windows\WindowsWindow.cpp" />
