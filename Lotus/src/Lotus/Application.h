@@ -10,6 +10,7 @@
 #include "Lotus/ImGui/ImGuiLayer.h"
 
 #include "Lotus/Renderer/Shader.h"
+#include "Lotus/Renderer/Buffer.h"
 
 namespace Lotus {
 
@@ -37,8 +38,10 @@ namespace Lotus {
 		bool m_Running = true;
 		LayerStack m_LayerStack;
 
-		unsigned int m_VertexArray, m_VertexBuffer, m_IndexBuffer;
+		unsigned int m_VertexArray;
 		std::unique_ptr<Shader> m_Shader;
+		std::unique_ptr<VertexBuffer> m_VertexBuffer;
+		std::unique_ptr<IndexBuffer> m_IndexBuffer;
 	private:
 		static Application* s_Instance;
 	};
