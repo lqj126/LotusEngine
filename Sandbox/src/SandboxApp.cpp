@@ -23,7 +23,6 @@ public:
 		ImGui::End();
 	}
 
-
 	void OnEvent(Lotus::Event& event) override
 	{
 		if (event.GetEventType() == Lotus::EventType::KeyPressed)

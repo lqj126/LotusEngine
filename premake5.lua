@@ -25,7 +25,7 @@ include "Lotus/vendor/imgui"
 
 project "Lotus" --项目名称
     location "Lotus" --相对路径
-    kind "StaticLib" --表明该项目是dll动态库
+    kind "StaticLib" --表明该项目是lib静态库
 	cppdialect "C++17"
 	staticruntime "on"
 
@@ -55,7 +55,9 @@ project "Lotus" --项目名称
 		"%{IncludeDir.GLFW}",
 		"%{IncludeDir.Glad}",
 		"%{IncludeDir.ImGui}",
-		"%{IncludeDir.glm}"
+		"%{IncludeDir.glm}",
+		"%{prj.name}/Resources/Texture",
+		"%{prj.name}/Resources/Shader"
     }
 	
 	links
