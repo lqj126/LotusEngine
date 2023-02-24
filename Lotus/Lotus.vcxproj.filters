@@ -1395,6 +1395,8 @@
     <ClInclude Include="src\Platform\OpenGL\OpenGLRendererAPI.h" />
     <ClInclude Include="src\Lotus\Renderer\RendererAPI.h" />
     <ClInclude Include="src\Lotus\Renderer\RenderCommand.h" />
+    <ClInclude Include="src\Lotus\Vertices.h" />
+    <ClInclude Include="src\Lotus\CubeShader.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Lotus\Application.cpp">

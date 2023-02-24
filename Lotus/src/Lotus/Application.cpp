@@ -16,10 +16,13 @@
 #include "Shader.h"
 #include "stb_image.h"
 #include "Camera.h"
+#include "Vertices.h"
 #include <glm/glm.hpp> 
 #include <glm/gtc/matrix_transform.hpp> 
 #include <glm/gtc/type_ptr.hpp>
 
+
+#include "CubeShader.h"
 
 namespace Lotus {
 
@@ -40,12 +43,6 @@ namespace Lotus {
 
 		m_VertexArray.reset(VertexArray::Create());
 
-		float vertices[3 * 7] = {
-			-0.5f, -0.5f, 0.0f, 0.8f, 0.2f, 0.8f, 1.0f,
-			 0.5f, -0.5f, 0.0f, 0.2f, 0.3f, 0.8f, 1.0f,
-			 0.0f,  0.5f, 0.0f, 0.8f, 0.8f, 0.2f, 1.0f
-		};
-
 		m_VertexBuffer.reset(VertexBuffer::Create(vertices, sizeof(vertices)));
 
 		{
@@ -59,38 +56,13 @@ namespace Lotus {
 		}
 
 
-		uint32_t indices[3] = { 0, 1, 2 };
+		//uint32_t indices[3] = { 0, 1, 2 };
 		m_IndexBuffer.reset(IndexBuffer::Create(indices, sizeof(indices) / sizeof(uint32_t)));
 
-		std::string vertexSrc = R"(
-			#version 330 core
-			
-			layout(location = 0) in vec3 a_Position;
-			layout(location = 1) in vec4 a_Color;
-			out vec3 v_Position;
-			out vec4 v_Color;
-			void main()
-			{
-				v_Position = a_Position;
-				v_Color = a_Color;
-				gl_Position = vec4(a_Position, 1.0);	
-			}
-		)";
 
-		std::string fragmentSrc = R"(
-			#version 330 core
-			
-			layout(location = 0) out vec4 color;
-			in vec3 v_Position;
-			in vec4 v_Color;
-			void main()
-			{
-				color = vec4(v_Position * 0.5 + 0.5, 1.0);
-				color = v_Color;
-			}
-		)";
-
+		//load shader
 		m_Shader.reset(new Shader(vertexSrc, fragmentSrc));
+		//glUniform2f(glGetUniformLocation(ID, name.c_str()), x, y);
 	}
 
 	Application::~Application()
@@ -126,6 +98,21 @@ namespace Lotus {
 	{
 		while (m_Running)
 		{
+			glm::mat4 view = glm::mat4(1.0f);
+			view = glm::translate(view, glm::vec3(0.0f, 0.0f, -3.0f));
+			glm::mat4 projection;
+			projection = glm::perspective(glm::radians(45.0f), 800.0f / 600.0f, 0.1f, 100.0f);
+
+			glm::mat4 model = glm::mat4(1.0f);
+			model = glm::translate(model, cubePositions[0]);
+			float angle = 20.0f * 2;
+			model = glm::rotate(model, glm::radians(angle), glm::vec3(1.0f, 0.3f, 0.5f));
+
+			m_Shader->setMat4("model", model);
+			m_Shader->setMat4("view", view);
+			m_Shader->setMat4("projection", projection);
+
+			glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
 			RenderCommand::SetClearColor({ 0.1f, 0.1f, 0.1f, 1 });
 			RenderCommand::Clear();
@@ -133,7 +120,8 @@ namespace Lotus {
 			Renderer::BeginScene();
 
 			m_Shader->Bind();
-			glDrawElements(GL_TRIANGLES, m_IndexBuffer->GetCount(), GL_UNSIGNED_INT, nullptr);
+			glDrawArrays(GL_TRIANGLES, 0, 36);
+			//glDrawElements(GL_TRIANGLES, m_IndexBuffer->GetCount(), GL_UNSIGNED_INT, nullptr);
 			//Renderer::Submit(m_VertexArray);
 			Renderer::EndScene();
 			for (Layer* layer : m_LayerStack)

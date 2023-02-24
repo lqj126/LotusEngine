@@ -1,3 +1,4 @@
+#pragma once
 #ifndef SHADER_H
 #define SHADER_H
 
@@ -62,7 +63,7 @@ public:
         // 2. 编译着色器
         unsigned int vertex, fragment;
         // 顶点着色器
-        vertex = glCreateShader(GL_VERTEX_SHADER);
+        vertex = glCreateShader(GL_VERTEX_SHADER);/////////////////////
         glShaderSource(vertex, 1, &vShaderCode, NULL);
         glCompileShader(vertex);
         checkCompileErrors(vertex, "VERTEX");
