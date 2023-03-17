@@ -1410,6 +1410,8 @@
     <ClInclude Include="vendor\glm\glm\vector_relational.hpp">
       <Filter>vendor\glm\glm</Filter>
     </ClInclude>
+<<<<<<< HEAD
+<<<<<<< HEAD
     <ClInclude Include="vendor\stb_image\stb_image.h">
       <Filter>vendor\stb_image</Filter>
     </ClInclude>
@@ -1417,6 +1419,19 @@
       <Filter>src\Hazel\Renderer</Filter>
     </ClInclude>
     <ClInclude Include="src\Platform\OpenGL\OpenGLFramebuffer.h" />
+=======
+=======
+>>>>>>> 2b2bd744763595dbc2248baf9251b6cb29fc7e8e
+    <ClInclude Include="src\Lotus\Renderer\VertexArray.h">
+      <Filter>src\Lotus\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Platform\OpenGL\OpenGLVertexArray.h">
+      <Filter>src\Platform\OpenGL</Filter>
+    </ClInclude>
+<<<<<<< HEAD
+>>>>>>> 2b2bd744763595dbc2248baf9251b6cb29fc7e8e
+=======
+>>>>>>> 2b2bd744763595dbc2248baf9251b6cb29fc7e8e
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Lotus\Core\Application.cpp">
@@ -1491,6 +1506,8 @@
     <ClCompile Include="src\ltpch.cpp">
       <Filter>src</Filter>
     </ClCompile>
+<<<<<<< HEAD
+<<<<<<< HEAD
     <ClCompile Include="vendor\stb_image\stb_image.cpp">
       <Filter>vendor\stb_image</Filter>
     </ClCompile>
@@ -1498,5 +1515,18 @@
       <Filter>src\Hazel\Renderer</Filter>
     </ClCompile>
     <ClCompile Include="src\Platform\OpenGL\OpenGLFramebuffer.cpp" />
+=======
+=======
+>>>>>>> 2b2bd744763595dbc2248baf9251b6cb29fc7e8e
+    <ClCompile Include="src\Lotus\Renderer\VertexArray.cpp">
+      <Filter>src\Lotus\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Platform\OpenGL\OpenGLVertexArray.cpp">
+      <Filter>src\Platform\OpenGL</Filter>
+    </ClCompile>
+<<<<<<< HEAD
+>>>>>>> 2b2bd744763595dbc2248baf9251b6cb29fc7e8e
+=======
+>>>>>>> 2b2bd744763595dbc2248baf9251b6cb29fc7e8e
   </ItemGroup>
 </Project>

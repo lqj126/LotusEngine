@@ -53,19 +53,46 @@ namespace Lotus {
 		glBindVertexArray(m_RendererID);
 		vertexBuffer->Bind();
 
+<<<<<<< HEAD
+<<<<<<< HEAD
 		const auto& layout = vertexBuffer->GetLayout();
 		for (const auto& element : layout)
 		{
 			glEnableVertexAttribArray(m_VertexBufferIndex);
 			glVertexAttribPointer(m_VertexBufferIndex,
+=======
+=======
+>>>>>>> 2b2bd744763595dbc2248baf9251b6cb29fc7e8e
+		uint32_t index = 0;
+		const auto& layout = vertexBuffer->GetLayout();
+		for (const auto& element : layout)
+		{
+			glEnableVertexAttribArray(index);
+			glVertexAttribPointer(index,
+<<<<<<< HEAD
+>>>>>>> 2b2bd744763595dbc2248baf9251b6cb29fc7e8e
+=======
+>>>>>>> 2b2bd744763595dbc2248baf9251b6cb29fc7e8e
 				element.GetComponentCount(),
 				ShaderDataTypeToOpenGLBaseType(element.Type),
 				element.Normalized ? GL_TRUE : GL_FALSE,
 				layout.GetStride(),
+<<<<<<< HEAD
+<<<<<<< HEAD
 				(const void*)(intptr_t)element.Offset);
 			m_VertexBufferIndex++;
 		}
 
+=======
+				(const void*)element.Offset);
+			index++;
+		}
+>>>>>>> 2b2bd744763595dbc2248baf9251b6cb29fc7e8e
+=======
+				(const void*)element.Offset);
+			index++;
+		}
+>>>>>>> 2b2bd744763595dbc2248baf9251b6cb29fc7e8e
 		m_VertexBuffers.push_back(vertexBuffer);
 	}
 
@@ -77,4 +104,12 @@ namespace Lotus {
 		m_IndexBuffer = indexBuffer;
 	}
 
+<<<<<<< HEAD
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 2b2bd744763595dbc2248baf9251b6cb29fc7e8e
+=======
+}
+>>>>>>> 2b2bd744763595dbc2248baf9251b6cb29fc7e8e

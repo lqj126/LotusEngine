@@ -22,4 +22,12 @@ namespace Lotus {
 		static VertexArray* Create();
 	};
 
+<<<<<<< HEAD
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 2b2bd744763595dbc2248baf9251b6cb29fc7e8e
+=======
+}
+>>>>>>> 2b2bd744763595dbc2248baf9251b6cb29fc7e8e

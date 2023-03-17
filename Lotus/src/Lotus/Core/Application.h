@@ -9,7 +9,16 @@
 
 #include "Lotus/Core/Timestep.h"
 
+<<<<<<< HEAD:Lotus/src/Lotus/Core/Application.h
 #include "Lotus/ImGui/ImGuiLayer.h"
+=======
+#include "Lotus/Renderer/Shader.h"
+#include "Lotus/Renderer/Buffer.h"
+#include "Lotus/Renderer/VertexArray.h"
+<<<<<<< HEAD:Lotus/src/Lotus/Core/Application.h
+>>>>>>> 2b2bd744763595dbc2248baf9251b6cb29fc7e8e:Lotus/src/Lotus/Application.h
+=======
+>>>>>>> 2b2bd744763595dbc2248baf9251b6cb29fc7e8e:Lotus/src/Lotus/Application.h
 
 namespace Lotus {
 
@@ -38,7 +47,20 @@ namespace Lotus {
 		bool m_Running = true;
 		bool m_Minimized = false;
 		LayerStack m_LayerStack;
+<<<<<<< HEAD:Lotus/src/Lotus/Core/Application.h
 		float m_LastFrameTime = 0.0f;
+=======
+
+
+		std::shared_ptr<Shader> m_Shader;
+		std::shared_ptr<VertexArray> m_VertexArray;
+		std::shared_ptr<VertexBuffer> m_VertexBuffer;
+		std::shared_ptr<IndexBuffer> m_IndexBuffer;
+
+<<<<<<< HEAD:Lotus/src/Lotus/Core/Application.h
+>>>>>>> 2b2bd744763595dbc2248baf9251b6cb29fc7e8e:Lotus/src/Lotus/Application.h
+=======
+>>>>>>> 2b2bd744763595dbc2248baf9251b6cb29fc7e8e:Lotus/src/Lotus/Application.h
 	private:
 		static Application* s_Instance;
 	};

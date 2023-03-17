@@ -20,9 +20,23 @@ namespace Lotus {
 		virtual const std::shared_ptr<IndexBuffer>& GetIndexBuffer() const { return m_IndexBuffer; }
 	private:
 		uint32_t m_RendererID;
+<<<<<<< HEAD
+<<<<<<< HEAD
 		uint32_t m_VertexBufferIndex = 0;
+=======
+>>>>>>> 2b2bd744763595dbc2248baf9251b6cb29fc7e8e
+=======
+>>>>>>> 2b2bd744763595dbc2248baf9251b6cb29fc7e8e
 		std::vector<std::shared_ptr<VertexBuffer>> m_VertexBuffers;
 		std::shared_ptr<IndexBuffer> m_IndexBuffer;
 	};
 
+<<<<<<< HEAD
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 2b2bd744763595dbc2248baf9251b6cb29fc7e8e
+=======
+}
+>>>>>>> 2b2bd744763595dbc2248baf9251b6cb29fc7e8e

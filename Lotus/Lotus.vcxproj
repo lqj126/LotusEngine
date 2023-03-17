@@ -144,8 +144,16 @@
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
+<<<<<<< HEAD
+<<<<<<< HEAD
     <ClInclude Include="src\Platform\OpenGL\OpenGLFramebuffer.h" />
     <ClInclude Include="src\Lotus\Renderer\Framebuffer.h" />
+=======
+    <ClInclude Include="src\Platform\OpenGL\OpenGLVertexArray.h" />
+>>>>>>> 2b2bd744763595dbc2248baf9251b6cb29fc7e8e
+=======
+    <ClInclude Include="src\Platform\OpenGL\OpenGLVertexArray.h" />
+>>>>>>> 2b2bd744763595dbc2248baf9251b6cb29fc7e8e
     <ClInclude Include="src\Lotus.h" />
     <ClInclude Include="src\Lotus\Core\Application.h" />
     <ClInclude Include="src\Lotus\Core\Core.h" />
@@ -598,6 +606,8 @@
     <ClInclude Include="vendor\glm\glm\vec3.hpp" />
     <ClInclude Include="vendor\glm\glm\vec4.hpp" />
     <ClInclude Include="vendor\glm\glm\vector_relational.hpp" />
+<<<<<<< HEAD
+<<<<<<< HEAD
     <ClInclude Include="vendor\stb_image\stb_image.h" />
   </ItemGroup>
   <ItemGroup>
@@ -607,6 +617,18 @@
     <ClCompile Include="src\Lotus\Core\Layer.cpp" />
     <ClCompile Include="src\Lotus\Core\LayerStack.cpp" />
     <ClCompile Include="src\Lotus\Core\Log.cpp" />
+=======
+    <ClInclude Include="src\Lotus\Renderer\VertexArray.h" />
+  </ItemGroup>
+  <ItemGroup>
+=======
+    <ClInclude Include="src\Lotus\Renderer\VertexArray.h" />
+  </ItemGroup>
+  <ItemGroup>
+>>>>>>> 2b2bd744763595dbc2248baf9251b6cb29fc7e8e
+    <ClCompile Include="src\Platform\OpenGL\OpenGLVertexArray.cpp" />
+    <ClCompile Include="src\Lotus\Application.cpp" />
+>>>>>>> 2b2bd744763595dbc2248baf9251b6cb29fc7e8e
     <ClCompile Include="src\Lotus\ImGui\ImGuiBuild.cpp" />
     <ClCompile Include="src\Lotus\ImGui\ImGuiLayer.cpp" />
     <ClCompile Include="src\Lotus\Renderer\Buffer.cpp" />
@@ -629,7 +651,15 @@
     <ClCompile Include="src\ltpch.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>
     </ClCompile>
+<<<<<<< HEAD
+<<<<<<< HEAD
     <ClCompile Include="vendor\stb_image\stb_image.cpp" />
+=======
+    <ClCompile Include="src\Lotus\Renderer\VertexArray.cpp" />
+>>>>>>> 2b2bd744763595dbc2248baf9251b6cb29fc7e8e
+=======
+    <ClCompile Include="src\Lotus\Renderer\VertexArray.cpp" />
+>>>>>>> 2b2bd744763595dbc2248baf9251b6cb29fc7e8e
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="vendor\GLFW\GLFW.vcxproj">
