@@ -1,23 +1,22 @@
 #include "ltpch.h"
 #include "ImGuiLayer.h"
+#include <glad/glad.h>
 
 #include "imgui.h"
-#include "backends/imgui_impl_glfw.h"
-#include "backends/imgui_impl_opengl3.h"
+#include "backends/imgui_impl_opengl3.cpp"
+#include "backends/imgui_impl_glfw.cpp"
 
-#include "Lotus/Application.h"
+#include "Lotus/Core/Application.h"
+
+// TEMPORARY
 
 #include <GLFW/glfw3.h>
-#include <glad/glad.h>
+
 
 namespace Lotus {
 
 	ImGuiLayer::ImGuiLayer()
 		: Layer("ImGuiLayer")
-	{
-	}
-
-	ImGuiLayer::~ImGuiLayer()
 	{
 	}
 
@@ -60,7 +59,7 @@ namespace Lotus {
 		ImGui_ImplGlfw_Shutdown();
 		ImGui::DestroyContext();
 	}
-
+	
 	void ImGuiLayer::Begin()
 	{
 		ImGui_ImplOpenGL3_NewFrame();

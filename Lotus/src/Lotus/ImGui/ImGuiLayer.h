@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Lotus/Layer.h"
+#include "Lotus/Core/Layer.h"
 
 #include "Lotus/Events/ApplicationEvent.h"
 #include "Lotus/Events/KeyEvent.h"
@@ -8,12 +8,11 @@
 
 namespace Lotus {
 
-	class LOTUS_API ImGuiLayer : public Layer
+	class Lotus_API ImGuiLayer : public Layer
 	{
 	public:
 		ImGuiLayer();
-		~ImGuiLayer();
-
+		~ImGuiLayer() = default;
 
 		virtual void OnAttach() override;
 		virtual void OnDetach() override;

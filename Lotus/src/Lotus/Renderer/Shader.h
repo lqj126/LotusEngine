@@ -1,34 +1,37 @@
 #pragma once
 
 #include <string>
-#include "glm/glm.hpp"
+#include <unordered_map>
 
 namespace Lotus {
 
 	class Shader
 	{
 	public:
-		Shader(const std::string& vertexSrc, const std::string& fragmentSrc);
-		~Shader();
+		virtual ~Shader() = default;
 
-		void Bind() const;
-		void Unbind() const;
-	private:
-		uint32_t m_RendererID;
+		virtual void Bind() const = 0;
+		virtual void Unbind() const = 0;
 
+		virtual const std::string& GetName() const = 0;
+
+		static Ref<Shader> Create(const std::string& filepath);
+		static Ref<Shader> Create(const std::string& name, const std::string& vertexSrc, const std::string& fragmentSrc);
+	};
+
+	class ShaderLibrary
+	{
 	public:
-		void setBool(const std::string& name, bool value)					const;
-		void setInt(const std::string& name, int value)						const;
-		void setFloat(const std::string& name, float value)					const;
-		void setFloat2(const std::string& name, const glm::vec2& value)		const;
-		void setFloat2(const std::string& name, float x, float y)				const;
-		void setFloat3(const std::string& name, const glm::vec3& value)		const;
-		void setFloat3(const std::string& name, float x, float y, float z)	const;
-		void setFloat4(const std::string& name, const glm::vec4& value)		const;
-		void setFloat4(const std::string& name, float x, float y, float z, float w);
-		void setMat2(const std::string& name, const glm::mat2& mat)			const;
-		void setMat3(const std::string& name, const glm::mat3& mat)			const;
-		void setMat4(const std::string& name, const glm::mat4& mat)			const;
+		void Add(const std::string& name, const Ref<Shader>& shader);
+		void Add(const Ref<Shader>& shader);
+		Ref<Shader> Load(const std::string& filepath);
+		Ref<Shader> Load(const std::string& name, const std::string& filepath);
+
+		Ref<Shader> Get(const std::string& name);
+
+		bool Exists(const std::string& name) const;
+	private:
+		std::unordered_map<std::string, Ref<Shader>> m_Shaders;
 	};
 
 }

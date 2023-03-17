@@ -4,7 +4,7 @@
 
 namespace Lotus {
 
-	class LOTUS_API MouseMovedEvent : public Event
+	class Lotus_API MouseMovedEvent : public Event
 	{
 	public:
 		MouseMovedEvent(float x, float y)
@@ -21,12 +21,12 @@ namespace Lotus {
 		}
 
 		EVENT_CLASS_TYPE(MouseMoved)
-			EVENT_CLASS_CATEGORY(EventCategoryMouse | EventCategoryInput)
+		EVENT_CLASS_CATEGORY(EventCategoryMouse | EventCategoryInput)
 	private:
 		float m_MouseX, m_MouseY;
 	};
 
-	class LOTUS_API MouseScrolledEvent : public Event
+	class Lotus_API MouseScrolledEvent : public Event
 	{
 	public:
 		MouseScrolledEvent(float xOffset, float yOffset)
@@ -43,12 +43,12 @@ namespace Lotus {
 		}
 
 		EVENT_CLASS_TYPE(MouseScrolled)
-			EVENT_CLASS_CATEGORY(EventCategoryMouse | EventCategoryInput)
+		EVENT_CLASS_CATEGORY(EventCategoryMouse | EventCategoryInput)
 	private:
 		float m_XOffset, m_YOffset;
 	};
 
-	class LOTUS_API MouseButtonEvent : public Event
+	class Lotus_API MouseButtonEvent : public Event
 	{
 	public:
 		inline int GetMouseButton() const { return m_Button; }
@@ -61,7 +61,7 @@ namespace Lotus {
 		int m_Button;
 	};
 
-	class LOTUS_API MouseButtonPressedEvent : public MouseButtonEvent
+	class Lotus_API MouseButtonPressedEvent : public MouseButtonEvent
 	{
 	public:
 		MouseButtonPressedEvent(int button)
@@ -77,7 +77,7 @@ namespace Lotus {
 		EVENT_CLASS_TYPE(MouseButtonPressed)
 	};
 
-	class LOTUS_API MouseButtonReleasedEvent : public MouseButtonEvent
+	class Lotus_API MouseButtonReleasedEvent : public MouseButtonEvent
 	{
 	public:
 		MouseButtonReleasedEvent(int button)

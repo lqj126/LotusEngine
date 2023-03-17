@@ -4,7 +4,7 @@
 
 namespace Lotus {
 
-	class LOTUS_API KeyEvent : public Event
+	class Lotus_API KeyEvent : public Event
 	{
 	public:
 		inline int GetKeyCode() const { return m_KeyCode; }
@@ -17,7 +17,7 @@ namespace Lotus {
 		int m_KeyCode;
 	};
 
-	class LOTUS_API KeyPressedEvent : public KeyEvent
+	class Lotus_API KeyPressedEvent : public KeyEvent
 	{
 	public:
 		KeyPressedEvent(int keycode, int repeatCount)
@@ -37,7 +37,7 @@ namespace Lotus {
 		int m_RepeatCount;
 	};
 
-	class LOTUS_API KeyReleasedEvent : public KeyEvent
+	class Lotus_API KeyReleasedEvent : public KeyEvent
 	{
 	public:
 		KeyReleasedEvent(int keycode)
@@ -53,7 +53,7 @@ namespace Lotus {
 		EVENT_CLASS_TYPE(KeyReleased)
 	};
 
-	class LOTUS_API KeyTypedEvent : public KeyEvent
+	class Lotus_API KeyTypedEvent : public KeyEvent
 	{
 	public:
 		KeyTypedEvent(int keycode)

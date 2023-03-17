@@ -1,8 +1,8 @@
 #include "ltpch.h"
 #include "OpenGLContext.h"
 
-#include <GLFW/glfw3.h>
 #include <glad/glad.h>
+#include <GLFW/glfw3.h>
 #include <GL/GL.h>
 
 namespace Lotus {
@@ -20,9 +20,9 @@ namespace Lotus {
 		LT_CORE_ASSERT(status, "Failed to initialize Glad!");
 
 		LT_CORE_INFO("OpenGL Info:");
-		//LT_CORE_INFO("  Vendor: {0}", flm::ptr(glGetString(GL_VENDOR)));
-		//LT_CORE_INFO("  Renderer: {0}", flm::ptr(glGetString(GL_RENDERER)));
-		//LT_CORE_INFO("  Version: {0}", flm::ptr(glGetString(GL_VERSION)));
+		//LT_CORE_INFO("  Vendor: {0}", glGetString(GL_VENDOR));
+		//LT_CORE_INFO("  Renderer: {0}", glGetString(GL_RENDERER));
+		//LT_CORE_INFO("  Version: {0}", glGetString(GL_VERSION));
 
 	}
 

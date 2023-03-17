@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Lotus/Input.h"
+#include "Lotus/Core/Input.h"
 
 namespace Lotus {
 

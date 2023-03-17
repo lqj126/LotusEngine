@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Lotus/Window.h"
+#include "Lotus/Core/Window.h"
 #include "Lotus/Renderer/GraphicsContext.h"
 
 #include <GLFW/glfw3.h>
