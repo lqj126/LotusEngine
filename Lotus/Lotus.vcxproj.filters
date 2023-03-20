@@ -4,20 +4,20 @@
     <Filter Include="src">
       <UniqueIdentifier>{2DAB880B-99B4-887C-2230-9F7C8E38947C}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\Hazel">
-      <UniqueIdentifier>{F0370AB3-5CA2-BE29-A5E0-6FCF118A9C7E}</UniqueIdentifier>
+    <Filter Include="src\Lotus">
+      <UniqueIdentifier>{D32F5AB3-3F9A-0E2A-88D8-BFCFF481EC7E}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\Hazel\Core">
-      <UniqueIdentifier>{48D253A8-34A0-47AE-1D34-B8D409A12313}</UniqueIdentifier>
+    <Filter Include="src\Lotus\Core">
+      <UniqueIdentifier>{0B30B96D-F7FD-AC73-E091-1D9ACCFE88D8}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\Hazel\Events">
-      <UniqueIdentifier>{D495B311-C08E-D263-E9C0-B7E8D518B26F}</UniqueIdentifier>
+    <Filter Include="src\Lotus\Events">
+      <UniqueIdentifier>{5770E7C5-4369-0618-6C9B-EB9C58F3E523}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\Hazel\ImGui">
-      <UniqueIdentifier>{1AE138B3-866C-A677-8F7D-296CFB870278}</UniqueIdentifier>
+    <Filter Include="src\Lotus\ImGui">
+      <UniqueIdentifier>{3DF74925-A982-B7E9-B293-3ADE1E9E13EA}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\Hazel\Renderer">
-      <UniqueIdentifier>{9669EB43-824D-AC99-EBAD-A6ECD7B0961B}</UniqueIdentifier>
+    <Filter Include="src\Lotus\Renderer">
+      <UniqueIdentifier>{D9F07FD4-C5D4-402A-2E35-3B7D1A382BAC}</UniqueIdentifier>
     </Filter>
     <Filter Include="src\Platform">
       <UniqueIdentifier>{21CA02E5-0D2D-9289-B6B2-CA3FA2F45D0C}</UniqueIdentifier>
@@ -58,87 +58,93 @@
       <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="src\Lotus\Core\Application.h">
-      <Filter>src\Hazel\Core</Filter>
+      <Filter>src\Lotus\Core</Filter>
     </ClInclude>
     <ClInclude Include="src\Lotus\Core\Core.h">
-      <Filter>src\Hazel\Core</Filter>
+      <Filter>src\Lotus\Core</Filter>
     </ClInclude>
     <ClInclude Include="src\Lotus\Core\EntryPoint.h">
-      <Filter>src\Hazel\Core</Filter>
+      <Filter>src\Lotus\Core</Filter>
     </ClInclude>
     <ClInclude Include="src\Lotus\Core\Input.h">
-      <Filter>src\Hazel\Core</Filter>
+      <Filter>src\Lotus\Core</Filter>
     </ClInclude>
     <ClInclude Include="src\Lotus\Core\KeyCodes.h">
-      <Filter>src\Hazel\Core</Filter>
+      <Filter>src\Lotus\Core</Filter>
     </ClInclude>
     <ClInclude Include="src\Lotus\Core\Layer.h">
-      <Filter>src\Hazel\Core</Filter>
+      <Filter>src\Lotus\Core</Filter>
     </ClInclude>
     <ClInclude Include="src\Lotus\Core\LayerStack.h">
-      <Filter>src\Hazel\Core</Filter>
+      <Filter>src\Lotus\Core</Filter>
     </ClInclude>
     <ClInclude Include="src\Lotus\Core\Log.h">
-      <Filter>src\Hazel\Core</Filter>
+      <Filter>src\Lotus\Core</Filter>
     </ClInclude>
     <ClInclude Include="src\Lotus\Core\MouseButtonCodes.h">
-      <Filter>src\Hazel\Core</Filter>
+      <Filter>src\Lotus\Core</Filter>
     </ClInclude>
     <ClInclude Include="src\Lotus\Core\Timestep.h">
-      <Filter>src\Hazel\Core</Filter>
+      <Filter>src\Lotus\Core</Filter>
     </ClInclude>
     <ClInclude Include="src\Lotus\Core\Window.h">
-      <Filter>src\Hazel\Core</Filter>
+      <Filter>src\Lotus\Core</Filter>
     </ClInclude>
     <ClInclude Include="src\Lotus\Events\ApplicationEvent.h">
-      <Filter>src\Hazel\Events</Filter>
+      <Filter>src\Lotus\Events</Filter>
     </ClInclude>
     <ClInclude Include="src\Lotus\Events\Event.h">
-      <Filter>src\Hazel\Events</Filter>
+      <Filter>src\Lotus\Events</Filter>
     </ClInclude>
     <ClInclude Include="src\Lotus\Events\KeyEvent.h">
-      <Filter>src\Hazel\Events</Filter>
+      <Filter>src\Lotus\Events</Filter>
     </ClInclude>
     <ClInclude Include="src\Lotus\Events\MouseEvent.h">
-      <Filter>src\Hazel\Events</Filter>
+      <Filter>src\Lotus\Events</Filter>
     </ClInclude>
     <ClInclude Include="src\Lotus\ImGui\ImGuiLayer.h">
-      <Filter>src\Hazel\ImGui</Filter>
+      <Filter>src\Lotus\ImGui</Filter>
     </ClInclude>
     <ClInclude Include="src\Lotus\Renderer\Buffer.h">
-      <Filter>src\Hazel\Renderer</Filter>
+      <Filter>src\Lotus\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Lotus\Renderer\Framebuffer.h">
+      <Filter>src\Lotus\Renderer</Filter>
     </ClInclude>
     <ClInclude Include="src\Lotus\Renderer\GraphicsContext.h">
-      <Filter>src\Hazel\Renderer</Filter>
+      <Filter>src\Lotus\Renderer</Filter>
     </ClInclude>
     <ClInclude Include="src\Lotus\Renderer\OrthographicCamera.h">
-      <Filter>src\Hazel\Renderer</Filter>
+      <Filter>src\Lotus\Renderer</Filter>
     </ClInclude>
     <ClInclude Include="src\Lotus\Renderer\OrthographicCameraController.h">
-      <Filter>src\Hazel\Renderer</Filter>
+      <Filter>src\Lotus\Renderer</Filter>
     </ClInclude>
     <ClInclude Include="src\Lotus\Renderer\RenderCommand.h">
-      <Filter>src\Hazel\Renderer</Filter>
+      <Filter>src\Lotus\Renderer</Filter>
     </ClInclude>
     <ClInclude Include="src\Lotus\Renderer\Renderer.h">
-      <Filter>src\Hazel\Renderer</Filter>
+      <Filter>src\Lotus\Renderer</Filter>
     </ClInclude>
     <ClInclude Include="src\Lotus\Renderer\RendererAPI.h">
-      <Filter>src\Hazel\Renderer</Filter>
+      <Filter>src\Lotus\Renderer</Filter>
     </ClInclude>
     <ClInclude Include="src\Lotus\Renderer\Shader.h">
-      <Filter>src\Hazel\Renderer</Filter>
+      <Filter>src\Lotus\Renderer</Filter>
     </ClInclude>
     <ClInclude Include="src\Lotus\Renderer\Texture.h">
-      <Filter>src\Hazel\Renderer</Filter>
+      <Filter>src\Lotus\Renderer</Filter>
     </ClInclude>
     <ClInclude Include="src\Lotus\Renderer\VertexArray.h">
-      <Filter>src\Hazel\Renderer</Filter>
+      <Filter>src\Lotus\Renderer</Filter>
     </ClInclude>
     <ClInclude Include="src\Platform\OpenGL\OpenGLBuffer.h">
       <Filter>src\Platform\OpenGL</Filter>
     </ClInclude>
     <ClInclude Include="src\Platform\OpenGL\OpenGLContext.h">
+      <Filter>src\Platform\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Platform\OpenGL\OpenGLFramebuffer.h">
       <Filter>src\Platform\OpenGL</Filter>
     </ClInclude>
     <ClInclude Include="src\Platform\OpenGL\OpenGLRendererAPI.h">
@@ -1410,79 +1416,66 @@
     <ClInclude Include="vendor\glm\glm\vector_relational.hpp">
       <Filter>vendor\glm\glm</Filter>
     </ClInclude>
-<<<<<<< HEAD
-<<<<<<< HEAD
     <ClInclude Include="vendor\stb_image\stb_image.h">
       <Filter>vendor\stb_image</Filter>
     </ClInclude>
-    <ClInclude Include="src\Lotus\Renderer\Framebuffer.h">
-      <Filter>src\Hazel\Renderer</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Platform\OpenGL\OpenGLFramebuffer.h" />
-=======
-=======
->>>>>>> 2b2bd744763595dbc2248baf9251b6cb29fc7e8e
-    <ClInclude Include="src\Lotus\Renderer\VertexArray.h">
-      <Filter>src\Lotus\Renderer</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Platform\OpenGL\OpenGLVertexArray.h">
-      <Filter>src\Platform\OpenGL</Filter>
-    </ClInclude>
-<<<<<<< HEAD
->>>>>>> 2b2bd744763595dbc2248baf9251b6cb29fc7e8e
-=======
->>>>>>> 2b2bd744763595dbc2248baf9251b6cb29fc7e8e
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Lotus\Core\Application.cpp">
-      <Filter>src\Hazel\Core</Filter>
+      <Filter>src\Lotus\Core</Filter>
     </ClCompile>
     <ClCompile Include="src\Lotus\Core\Layer.cpp">
-      <Filter>src\Hazel\Core</Filter>
+      <Filter>src\Lotus\Core</Filter>
     </ClCompile>
     <ClCompile Include="src\Lotus\Core\LayerStack.cpp">
-      <Filter>src\Hazel\Core</Filter>
+      <Filter>src\Lotus\Core</Filter>
     </ClCompile>
     <ClCompile Include="src\Lotus\Core\Log.cpp">
-      <Filter>src\Hazel\Core</Filter>
+      <Filter>src\Lotus\Core</Filter>
     </ClCompile>
     <ClCompile Include="src\Lotus\ImGui\ImGuiBuild.cpp">
-      <Filter>src\Hazel\ImGui</Filter>
+      <Filter>src\Lotus\ImGui</Filter>
     </ClCompile>
     <ClCompile Include="src\Lotus\ImGui\ImGuiLayer.cpp">
-      <Filter>src\Hazel\ImGui</Filter>
+      <Filter>src\Lotus\ImGui</Filter>
     </ClCompile>
     <ClCompile Include="src\Lotus\Renderer\Buffer.cpp">
-      <Filter>src\Hazel\Renderer</Filter>
+      <Filter>src\Lotus\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Lotus\Renderer\Framebuffer.cpp">
+      <Filter>src\Lotus\Renderer</Filter>
     </ClCompile>
     <ClCompile Include="src\Lotus\Renderer\OrthographicCamera.cpp">
-      <Filter>src\Hazel\Renderer</Filter>
+      <Filter>src\Lotus\Renderer</Filter>
     </ClCompile>
     <ClCompile Include="src\Lotus\Renderer\OrthographicCameraController.cpp">
-      <Filter>src\Hazel\Renderer</Filter>
+      <Filter>src\Lotus\Renderer</Filter>
     </ClCompile>
     <ClCompile Include="src\Lotus\Renderer\RenderCommand.cpp">
-      <Filter>src\Hazel\Renderer</Filter>
+      <Filter>src\Lotus\Renderer</Filter>
     </ClCompile>
     <ClCompile Include="src\Lotus\Renderer\Renderer.cpp">
-      <Filter>src\Hazel\Renderer</Filter>
+      <Filter>src\Lotus\Renderer</Filter>
     </ClCompile>
     <ClCompile Include="src\Lotus\Renderer\RendererAPI.cpp">
-      <Filter>src\Hazel\Renderer</Filter>
+      <Filter>src\Lotus\Renderer</Filter>
     </ClCompile>
     <ClCompile Include="src\Lotus\Renderer\Shader.cpp">
-      <Filter>src\Hazel\Renderer</Filter>
+      <Filter>src\Lotus\Renderer</Filter>
     </ClCompile>
     <ClCompile Include="src\Lotus\Renderer\Texture.cpp">
-      <Filter>src\Hazel\Renderer</Filter>
+      <Filter>src\Lotus\Renderer</Filter>
     </ClCompile>
     <ClCompile Include="src\Lotus\Renderer\VertexArray.cpp">
-      <Filter>src\Hazel\Renderer</Filter>
+      <Filter>src\Lotus\Renderer</Filter>
     </ClCompile>
     <ClCompile Include="src\Platform\OpenGL\OpenGLBuffer.cpp">
       <Filter>src\Platform\OpenGL</Filter>
     </ClCompile>
     <ClCompile Include="src\Platform\OpenGL\OpenGLContext.cpp">
+      <Filter>src\Platform\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Platform\OpenGL\OpenGLFramebuffer.cpp">
       <Filter>src\Platform\OpenGL</Filter>
     </ClCompile>
     <ClCompile Include="src\Platform\OpenGL\OpenGLRendererAPI.cpp">
@@ -1506,27 +1499,8 @@
     <ClCompile Include="src\ltpch.cpp">
       <Filter>src</Filter>
     </ClCompile>
-<<<<<<< HEAD
-<<<<<<< HEAD
     <ClCompile Include="vendor\stb_image\stb_image.cpp">
       <Filter>vendor\stb_image</Filter>
     </ClCompile>
-    <ClCompile Include="src\Lotus\Renderer\Framebuffer.cpp">
-      <Filter>src\Hazel\Renderer</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Platform\OpenGL\OpenGLFramebuffer.cpp" />
-=======
-=======
->>>>>>> 2b2bd744763595dbc2248baf9251b6cb29fc7e8e
-    <ClCompile Include="src\Lotus\Renderer\VertexArray.cpp">
-      <Filter>src\Lotus\Renderer</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Platform\OpenGL\OpenGLVertexArray.cpp">
-      <Filter>src\Platform\OpenGL</Filter>
-    </ClCompile>
-<<<<<<< HEAD
->>>>>>> 2b2bd744763595dbc2248baf9251b6cb29fc7e8e
-=======
->>>>>>> 2b2bd744763595dbc2248baf9251b6cb29fc7e8e
   </ItemGroup>
 </Project>
