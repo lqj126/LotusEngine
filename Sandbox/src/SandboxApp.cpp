@@ -267,19 +267,23 @@ public:
 			ImGui::End();
 		}
 
-// 		ImGui::Begin("Settings");
-// 		ImGui::ColorEdit3("Square Color", glm::value_ptr(m_SquareColor));
-// 		ImGui::End();
-// 
-		ImGui::Begin("m_viewport");
-
+		ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2{ 0, 0 });
+		ImGui::Begin("Viewport");
 		ImVec2 viewportPanelSize = ImGui::GetContentRegionAvail();
+		if (m_ViewportSize != *((glm::vec2*)&viewportPanelSize))
+		{
+			m_Framebuffer->Resize((uint32_t)viewportPanelSize.x, (uint32_t)viewportPanelSize.y);
+			m_ViewportSize = { viewportPanelSize.x, viewportPanelSize.y };
+
+			m_CameraController.OnResize(viewportPanelSize.x, viewportPanelSize.y);
+		}
 		uint32_t textureID = m_Framebuffer->GetColorAttachmentRendererID();
 		LT_WARN("{0}, {1}", viewportPanelSize.x, viewportPanelSize.y);
-		ImGui::Image((void*)textureID, ImVec2{ 1280, 720 }, ImVec2{ 0, 1 }, ImVec2{ 1, 0 });
+		ImGui::Image((void*)textureID, ImVec2{ viewportPanelSize.x, viewportPanelSize.y }, ImVec2{ 0, 1 }, ImVec2{ 1, 0 });
 		ImGui::End();
-// 
-/*		ImGui::End();*/
+		ImGui::PopStyleVar();
+
+
 
 		m_Framebuffer->Unbind();
 	}
@@ -311,6 +315,8 @@ private:
 	Lotus::Ref<Lotus::Texture2D> m_TestTexture;
 	Lotus::OrthographicCameraController m_CameraController;
 	glm::vec3 m_SquareColor = { 0.2f, 0.3f, 0.8f };
+
+	glm::vec2 m_ViewportSize = { 0.0f, 0.0f };
 };
 
 class Sandbox : public Lotus::Application
