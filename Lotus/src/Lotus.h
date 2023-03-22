@@ -24,10 +24,11 @@
 #include "Lotus/Renderer/Texture.h"
 #include "Lotus/Renderer/Framebuffer.h"
 #include "Lotus/Renderer/VertexArray.h"
+#include "Platform/OpenGL/OpenGLShader.h"
 
 #include "Lotus/Renderer/OrthographicCamera.h"
 // -----------------------------------
 
 // ---Entry Point---------------------
-#include "Lotus/Core/EntryPoint.h"
+//Should be removed from this file
 // -----------------------------------
