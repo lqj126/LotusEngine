@@ -1419,6 +1419,7 @@
     <ClInclude Include="vendor\stb_image\stb_image.h">
       <Filter>vendor\stb_image</Filter>
     </ClInclude>
+    <ClInclude Include="src\Lotus\Renderer\camera.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Lotus\Core\Application.cpp">

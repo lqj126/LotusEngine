@@ -148,6 +148,9 @@
     <ClInclude Include="src\Sandbox2D.h" />
     <ClInclude Include="src\Sandbox3D.h" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="assets\shaders\Cube3D.glsl" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

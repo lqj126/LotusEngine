@@ -162,6 +162,7 @@
     <ClInclude Include="src\Lotus\Events\MouseEvent.h" />
     <ClInclude Include="src\Lotus\ImGui\ImGuiLayer.h" />
     <ClInclude Include="src\Lotus\Renderer\Buffer.h" />
+    <ClInclude Include="src\Lotus\Renderer\camera.h" />
     <ClInclude Include="src\Lotus\Renderer\Framebuffer.h" />
     <ClInclude Include="src\Lotus\Renderer\GraphicsContext.h" />
     <ClInclude Include="src\Lotus\Renderer\OrthographicCamera.h" />
