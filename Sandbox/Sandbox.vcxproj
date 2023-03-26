@@ -59,6 +59,8 @@
     <IntDir>..\bin-int\Debug-windows-x86_64\Sandbox\</IntDir>
     <TargetName>Sandbox</TargetName>
     <TargetExt>.exe</TargetExt>
+    <IncludePath>H:\Dev\Lotus\assimp501;$(IncludePath)</IncludePath>
+    <LibraryPath>H:\Dev\Lotus\assimp501;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
@@ -90,6 +92,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>assimp-vc142-mt.lib;assimp-vc142-mtd.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -135,6 +138,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="src\Sandbox2D.h" />
+    <ClInclude Include="src\Sandbox3D.h" />
+  </ItemGroup>
+  <ItemGroup>
     <ClCompile Include="src\Sandbox2D.cpp" />
     <ClCompile Include="src\Sandbox3D.cpp" />
     <ClCompile Include="src\SandboxApp.cpp" />
@@ -143,13 +150,6 @@
     <ProjectReference Include="..\Lotus\Lotus.vcxproj">
       <Project>{7C219D0D-E835-C5BE-B1B7-681E1D8BC1EF}</Project>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="src\Sandbox2D.h" />
-    <ClInclude Include="src\Sandbox3D.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="assets\shaders\Cube3D.glsl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
