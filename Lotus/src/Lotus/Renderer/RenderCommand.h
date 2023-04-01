@@ -27,12 +27,16 @@ namespace Lotus {
 			s_RendererAPI->Clear();
 		}
 
-		inline static void DrawIndexed(const std::shared_ptr<VertexArray>& vertexArray)
+		inline static void DrawIndexed(uint32_t elementCount)
 		{
-			s_RendererAPI->DrawIndexed(vertexArray);
+			s_RendererAPI->DrawIndexed(elementCount);
+		}
+
+		inline static void Draw(int fisrt, uint32_t elementCount)
+		{
+			s_RendererAPI->Draw(fisrt, elementCount);
 		}
 	private:
 		static RendererAPI* s_RendererAPI;
 	};
-
 }

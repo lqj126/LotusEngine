@@ -41,7 +41,6 @@ namespace Lotus {
 
 		if (!s_GLFWInitialized)
 		{
-			// TODO: glfwTerminate on system shutdown
 			int success = glfwInit();
 			LT_CORE_ASSERT(success, "Could not intialize GLFW!");
 			glfwSetErrorCallback(GLFWErrorCallback);

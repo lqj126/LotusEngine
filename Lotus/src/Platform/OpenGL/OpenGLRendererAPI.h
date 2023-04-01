@@ -13,8 +13,7 @@ namespace Lotus {
 		virtual void SetClearColor(const glm::vec4& color) override;
 		virtual void Clear() override;
 
-		virtual void DrawIndexed(const std::shared_ptr<VertexArray>& vertexArray) override;
+		virtual void DrawIndexed(uint32_t elementCount) override;
+		virtual void Draw(int first, uint32_t elementCount) override;  // draw without index buffer
 	};
-
-
 }

@@ -138,7 +138,7 @@
     <ClInclude Include="src\Lotus\Renderer\VertexArray.h">
       <Filter>src\Lotus\Renderer</Filter>
     </ClInclude>
-    <ClInclude Include="src\Lotus\Renderer\camera.h">
+    <ClInclude Include="src\Lotus\Renderer\Camera.h">
       <Filter>src\Lotus\Renderer</Filter>
     </ClInclude>
     <ClInclude Include="src\Platform\OpenGL\OpenGLBuffer.h">
@@ -1422,6 +1422,36 @@
     <ClInclude Include="vendor\stb_image\stb_image.h">
       <Filter>vendor\stb_image</Filter>
     </ClInclude>
+    <ClInclude Include="src\Lotus\Renderer\Vertex.h">
+      <Filter>src\Lotus\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Lotus\Renderer\Material.h">
+      <Filter>src\Lotus\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Lotus\Renderer\Mesh.h">
+      <Filter>src\Lotus\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Lotus\Renderer\Model.h">
+      <Filter>src\Lotus\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Lotus\Core\AssetsManager.h">
+      <Filter>src\Lotus\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Lotus\Renderer\Light.h">
+      <Filter>src\Lotus\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Lotus\Renderer\CameraController.h">
+      <Filter>src\Lotus\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Lotus\Core\Constants.h">
+      <Filter>src\Lotus\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Lotus\Core\Utils.h">
+      <Filter>src\Lotus\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Lotus\Renderer\Renderer2D.h">
+      <Filter>src\Lotus\Renderer</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Lotus\Core\Application.cpp">
@@ -1504,6 +1534,30 @@
     </ClCompile>
     <ClCompile Include="vendor\stb_image\stb_image.cpp">
       <Filter>vendor\stb_image</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Lotus\Renderer\Material.cpp">
+      <Filter>src\Lotus\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Lotus\Renderer\Mesh.cpp">
+      <Filter>src\Lotus\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Lotus\Renderer\Model.cpp">
+      <Filter>src\Lotus\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Lotus\Core\AssetsManager.cpp">
+      <Filter>src\Lotus\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Lotus\Renderer\Camera.cpp">
+      <Filter>src\Lotus\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Lotus\Renderer\CameraController.cpp">
+      <Filter>src\Lotus\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Lotus\Renderer\Light.cpp">
+      <Filter>src\Lotus\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Lotus\Renderer\Renderer2D.cpp">
+      <Filter>src\Lotus\Renderer</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -10,8 +10,8 @@ namespace Lotus {
 	{
 		switch (Renderer::GetAPI())
 		{
-			case RendererAPI::API::None:    LT_CORE_ASSERT(false, "RendererAPI::None is currently not supported!"); return nullptr;
-			case RendererAPI::API::OpenGL:  return std::make_shared<OpenGLShader>(filepath);
+		case RendererAPI::API::None:    LT_CORE_ASSERT(false, "RendererAPI::None is currently not supported!"); return nullptr;
+		case RendererAPI::API::OpenGL:  return CreateRef<OpenGLShader>(filepath);
 		}
 
 		LT_CORE_ASSERT(false, "Unknown RendererAPI!");
@@ -22,8 +22,8 @@ namespace Lotus {
 	{
 		switch (Renderer::GetAPI())
 		{
-			case RendererAPI::API::None:    LT_CORE_ASSERT(false, "RendererAPI::None is currently not supported!"); return nullptr;
-			case RendererAPI::API::OpenGL:  return std::make_shared<OpenGLShader>(name, vertexSrc, fragmentSrc);
+		case RendererAPI::API::None:    LT_CORE_ASSERT(false, "RendererAPI::None is currently not supported!"); return nullptr;
+		case RendererAPI::API::OpenGL:  return CreateRef<OpenGLShader>(name, vertexSrc, fragmentSrc);
 		}
 
 		LT_CORE_ASSERT(false, "Unknown RendererAPI!");
@@ -42,21 +42,21 @@ namespace Lotus {
 		Add(name, shader);
 	}
 
-	Lotus::Ref<Lotus::Shader> ShaderLibrary::Load(const std::string& filepath)
+	Ref<Shader> ShaderLibrary::Load(const std::string& filepath)
 	{
 		auto shader = Shader::Create(filepath);
 		Add(shader);
 		return shader;
 	}
 
-	Lotus::Ref<Lotus::Shader> ShaderLibrary::Load(const std::string& name, const std::string& filepath)
+	Ref<Shader> ShaderLibrary::Load(const std::string& name, const std::string& filepath)
 	{
 		auto shader = Shader::Create(filepath);
 		Add(name, shader);
 		return shader;
 	}
 
-	Lotus::Ref<Lotus::Shader> ShaderLibrary::Get(const std::string& name)
+	Ref<Shader> ShaderLibrary::Get(const std::string& name)
 	{
 		LT_CORE_ASSERT(Exists(name), "Shader not found!");
 		return m_Shaders[name];

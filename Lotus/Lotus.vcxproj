@@ -146,6 +146,15 @@
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="src\Lotus\Renderer\Renderer2D.h" />
+    <ClInclude Include="src\Lotus\Renderer\CameraController.h" />
+    <ClInclude Include="src\Lotus\Core\AssetsManager.h" />
+    <ClInclude Include="src\Lotus\Core\Constants.h" />
+    <ClInclude Include="src\Lotus\Core\Utils.h" />
+    <ClInclude Include="src\Lotus\Renderer\Light.h" />
+    <ClInclude Include="src\Lotus\Renderer\Material.h" />
+    <ClInclude Include="src\Lotus\Renderer\Model.h" />
+    <ClInclude Include="src\Lotus\Renderer\Mesh.h" />
     <ClInclude Include="src\Lotus.h" />
     <ClInclude Include="src\Lotus\Core\Application.h" />
     <ClInclude Include="src\Lotus\Core\Core.h" />
@@ -174,7 +183,7 @@
     <ClInclude Include="src\Lotus\Renderer\Shader.h" />
     <ClInclude Include="src\Lotus\Renderer\Texture.h" />
     <ClInclude Include="src\Lotus\Renderer\VertexArray.h" />
-    <ClInclude Include="src\Lotus\Renderer\camera.h" />
+    <ClInclude Include="src\Lotus\Renderer\Camera.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLBuffer.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLContext.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLFramebuffer.h" />
@@ -602,8 +611,17 @@
     <ClInclude Include="vendor\glm\glm\vec4.hpp" />
     <ClInclude Include="vendor\glm\glm\vector_relational.hpp" />
     <ClInclude Include="vendor\stb_image\stb_image.h" />
+    <ClInclude Include="src\Lotus\Renderer\Vertex.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Lotus\Renderer\Renderer2D.cpp" />
+    <ClCompile Include="src\Lotus\Renderer\CameraController.cpp" />
+    <ClCompile Include="src\Lotus\Core\AssetsManager.cpp" />
+    <ClCompile Include="src\Lotus\Renderer\Camera.cpp" />
+    <ClCompile Include="src\Lotus\Renderer\Light.cpp" />
+    <ClCompile Include="src\Lotus\Renderer\Material.cpp" />
+    <ClCompile Include="src\Lotus\Renderer\Model.cpp" />
+    <ClCompile Include="src\Lotus\Renderer\Mesh.cpp" />
     <ClCompile Include="src\Lotus\Core\Application.cpp" />
     <ClCompile Include="src\Lotus\Core\Layer.cpp" />
     <ClCompile Include="src\Lotus\Core\LayerStack.cpp" />

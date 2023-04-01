@@ -1,15 +1,18 @@
 #include "ltpch.h"
 #include "Renderer.h"
-
-#include "Platform/OpenGL/OpenGLShader.h"
+#include "Renderer2D.h"
 
 namespace Lotus {
 
-	Renderer::SceneData* Renderer::s_SceneData = new Renderer::SceneData;
+	Renderer::SceneData* Renderer::m_SceneData = new Renderer::SceneData;
+	Ref<ShaderLibrary> Renderer::s_ShaderLibrary = CreateRef<ShaderLibrary>();
 
 	void Renderer::Init()
 	{
-		RenderCommand::Init();
+		Renderer2D::Init();
+
+		s_ShaderLibrary->Load("H:/Dev/Lotus/Lotus/assets/shaders/Material.glsl");
+		s_ShaderLibrary->Load("H:/Dev/Lotus/Lotus/assets/shaders/Light.glsl");
 	}
 
 	void Renderer::OnWindowResize(uint32_t width, uint32_t height)
@@ -17,23 +20,90 @@ namespace Lotus {
 		RenderCommand::SetViewport(0, 0, width, height);
 	}
 
-	void Renderer::BeginScene(OrthographicCamera& camera)
+	void Renderer::BeginScene(
+		const Camera& camera,
+		// lighting
+		const Ref<DirectionalLight>& directionalLight,
+		const std::vector<Ref<PointLight>>& pointLights,
+		const Ref<SpotLight>& spotLight
+	)
 	{
-		s_SceneData->ViewProjectionMatrix = camera.GetViewProjectionMatrix();
+		for (auto& [shaderName, shader] : Renderer::GetShaderLib()->GetShaders())
+		{
+			shader->Bind();
+			// camera
+			shader->SetMat4("u_ViewProjection", camera.GetViewProjectionMatrix());
+			shader->SetFloat3("u_ViewPosition", camera.GetPosition());
+
+			// directional light
+			if (directionalLight)
+			{
+				directionalLight->Bind(shader);
+			}
+			shader->SetInt("u_PointLightCount", pointLights.size());
+			for (int i = 0; i < pointLights.size(); ++i)
+			{
+				const auto& pointLight = pointLights[i];
+				pointLight->Bind(shader, i);
+			}
+			if (spotLight)
+			{
+				shader->SetInt("u_SpotLightCount", 1); 
+				spotLight->Bind(shader);
+			}
+		}
 	}
 
 	void Renderer::EndScene()
 	{
 	}
 
-	void Renderer::Submit(const std::shared_ptr<Shader>& shader, const std::shared_ptr<VertexArray>& vertexArray, const glm::mat4& transform)
+	void Renderer::Submit(
+		const Mesh& mesh,
+		const glm::mat4& modelTransform
+	)
 	{
-		shader->Bind();
- 		std::dynamic_pointer_cast<OpenGLShader>(shader)->UploadUniformMat4("u_ViewProjection", s_SceneData->ViewProjectionMatrix);
-		std::dynamic_pointer_cast<OpenGLShader>(shader)->UploadUniformMat4("u_Transform", transform);
+		auto shader = Lotus::Renderer::GetShaderLib()->Get("Material");
+		mesh.GetMaterial()->Bind(shader);
+		shader->SetMat4("u_Transform", modelTransform);
+		glm::mat3 modelTransformNormal = glm::transpose(glm::inverse(glm::mat3(modelTransform)));
+		shader->SetMat3("u_TransformNormal", modelTransformNormal);
 
+		DrawVertexArray(mesh.GetVertexArray());
+	}
+
+	void Renderer::Submit(
+		const Model& model,
+		const glm::mat4& modelTransform
+	)
+	{
+		for (const Mesh& mesh : model.GetMeshes())
+		{
+			Submit(mesh, modelTransform);
+		}
+	}
+
+	void Renderer::Submit(const Ref<VertexArray>& vertexArray, const Ref<Light>& light, const glm::mat4& modelTransform)
+	{
+		auto shader = Lotus::Renderer::GetShaderLib()->Get("Light");
+		shader->Bind();
+		shader->SetMat4("u_Transform", modelTransform);
+		shader->SetFloat3("u_Color", light->GetColor());
+		DrawVertexArray(vertexArray);
+	}
+
+	void Renderer::DrawVertexArray(const Ref<VertexArray>& vertexArray)
+	{
 		vertexArray->Bind();
-		RenderCommand::DrawIndexed(vertexArray);
+
+		if (vertexArray->GetIndexBuffer())
+		{
+			RenderCommand::DrawIndexed(vertexArray->GetIndexBuffer()->GetCount());
+		}
+		else
+		{
+			RenderCommand::Draw(0, vertexArray->GetVertexCount());
+		}
 	}
 
 }

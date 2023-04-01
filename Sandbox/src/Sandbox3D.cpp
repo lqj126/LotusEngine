@@ -1,66 +1,109 @@
-#include "Sandbox3d.h"
-
-#include "Lotus.h"
-#include "imgui/imgui.h"
+#include "Sandbox3D.h"
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
-Sandbox3D::Sandbox3D()
-	: Layer("Sandbox3D")
-{
+#include <numeric>
 
+Sandbox3D::Sandbox3D() :
+	m_CameraController(
+		true, (float)Lotus::DEFAULT_WINDOW_WIDTH / (float)Lotus::DEFAULT_WINDOW_HEIGHT
+	), Layer("Sandbox3D")
+{
+	float aspectRatio = (float)Lotus::DEFAULT_WINDOW_WIDTH / (float)Lotus::DEFAULT_WINDOW_HEIGHT;
 }
 
 void Sandbox3D::OnAttach()
 {
-	m_VertexArray.reset(Lotus::VertexArray::Create());
-	float vertices[] = {
+	m_Model = Lotus::CreateRef<Lotus::Model>("H:/Dev/Lotus/Sandbox/assets/models/nanosuit/nanosuit.obj");
 
-		-0.5f,  0.5f, -0.5f, 0.0f, 1.0f,
-		 0.5f,  0.5f, -0.5f, 1.0f, 1.0f,
-		-0.5f, -0.5f, -0.5f, 0.0f, 0.0f,
-		 0.5f, -0.5f, -0.5f, 1.0f, 0.0f,
+	//light source
 
-		-0.5f,  0.5f, 0.5f, 0.0f, 1.0f,
-		 0.5f,  0.5f, 0.5f, 1.0f, 1.0f,
-		-0.5f, -0.5f, 0.5f, 0.0f, 0.0f,
-		 0.5f, -0.5f, 0.5f, 1.0f, 0.0f,
+	// directional light
+	m_DirectionalLight = Lotus::CreateRef<Lotus::DirectionalLight>(
+		m_DirectionalLightProp.color, m_DirectionalLightProp.direction,
+		m_DirectionalLightProp.ambient, m_DirectionalLightProp.diffuse, m_DirectionalLightProp.specular
+		);
+
+	// point light
+	float lightVertices[] = {
+		-0.1f, -0.1f, -0.1f,
+		 0.1f, -0.1f, -0.1f,
+		 0.1f,  0.1f, -0.1f,
+		 0.1f,  0.1f, -0.1f,
+		-0.1f,  0.1f, -0.1f,
+		-0.1f, -0.1f, -0.1f,
+
+		-0.1f, -0.1f,  0.1f,
+		 0.1f, -0.1f,  0.1f,
+		 0.1f,  0.1f,  0.1f,
+		 0.1f,  0.1f,  0.1f,
+		-0.1f,  0.1f,  0.1f,
+		-0.1f, -0.1f,  0.1f,
+
+		-0.1f,  0.1f,  0.1f,
+		-0.1f,  0.1f, -0.1f,
+		-0.1f, -0.1f, -0.1f,
+		-0.1f, -0.1f, -0.1f,
+		-0.1f, -0.1f,  0.1f,
+		-0.1f,  0.1f,  0.1f,
+
+		 0.1f,  0.1f,  0.1f,
+		 0.1f,  0.1f, -0.1f,
+		 0.1f, -0.1f, -0.1f,
+		 0.1f, -0.1f, -0.1f,
+		 0.1f, -0.1f,  0.1f,
+		 0.1f,  0.1f,  0.1f,
+
+		-0.1f, -0.1f, -0.1f,
+		 0.1f, -0.1f, -0.1f,
+		 0.1f, -0.1f,  0.1f,
+		 0.1f, -0.1f,  0.1f,
+		-0.1f, -0.1f,  0.1f,
+		-0.1f, -0.1f, -0.1f,
+
+		-0.1f,  0.1f, -0.1f,
+		 0.1f,  0.1f, -0.1f,
+		 0.1f,  0.1f,  0.1f,
+		 0.1f,  0.1f,  0.1f,
+		-0.1f,  0.1f,  0.1f,
+		-0.1f,  0.1f, -0.1f
 	};
-
-	Lotus::Ref<Lotus::VertexBuffer> vertexBuffer;
-	vertexBuffer.reset(Lotus::VertexBuffer::Create(vertices, sizeof(vertices)));
-	Lotus::BufferLayout layout = {
-		{ Lotus::ShaderDataType::Float3, "aPos" },
-		{ Lotus::ShaderDataType::Float2, "aTexCoord" }
+	Lotus::Ref<Lotus::VertexBuffer> pointLightVB = Lotus::VertexBuffer::Create(lightVertices, sizeof(lightVertices));
+	pointLightVB->SetLayout({
+		{ Lotus::ShaderDataType::Float3, "a_Position" }
+		});
+	// vertices array
+	m_PointLightVA = Lotus::VertexArray::Create();
+	m_PointLightVA->AddVertexBuffer(pointLightVB);
+	glm::vec3 pointLightPositions[] = {
+		glm::vec3(0.7f,  0.2f,  2.0f),
+		glm::vec3(2.3f, -3.3f, -4.0f),
+		glm::vec3(-4.0f,  2.0f, -12.0f),
+		glm::vec3(0.0f,  0.0f, -3.0f)
 	};
+	for (int i = 0; i < 4; ++i)
+	{
+		PointLightProps prop = PointLightProps();
+		prop.position = pointLightPositions[i];
+		m_PointLightProps.push_back(prop);
 
-	vertexBuffer->SetLayout(layout);
-	m_VertexArray->AddVertexBuffer(vertexBuffer);
-	uint32_t indices[] = {
-		0, 1, 2, // Side 0
-		2, 1, 3,
-		5, 4, 7, 
-		7, 4, 6, 
-		1, 5, 3, 
-		3, 5, 7, 
-		4, 0, 6, 
-		6, 0, 3, 
-		4, 5, 0, 
-		0, 5, 1, 
-		2, 3, 6, 
-		6, 3, 7, 
-	};
+		m_PointLights.push_back(Lotus::CreateRef<Lotus::PointLight>(
+			prop.color, prop.position,
+			prop.ambient, prop.diffuse, prop.specular,
+			prop.constant, prop.linear, prop.quadratic
+			));
+	}
 
-	Lotus::Ref<Lotus::IndexBuffer> indexBuffer;
-	indexBuffer.reset(Lotus::IndexBuffer::Create(indices, sizeof(indices) / sizeof(uint32_t)));
-	m_VertexArray->SetIndexBuffer(indexBuffer);
+	// spot light
+	m_SpotLight = Lotus::CreateRef<Lotus::SpotLight>(
+		m_SpotLightProp.color, m_CameraController.GetCamera().GetPosition(), -m_CameraController.GetCamera().GetZAxis(),
+		m_SpotLightProp.ambient, m_SpotLightProp.diffuse, m_SpotLightProp.specular,
+		m_SpotLightProp.constant, m_SpotLightProp.linear, m_SpotLightProp.quadratic,
+		glm::cos(glm::radians(m_SpotLightProp.cutOff)), glm::cos(glm::radians(m_SpotLightProp.cutOff + m_SpotLightProp.epsilon))
+		);
 
-	auto CubeShader = m_ShaderLibrary.Load("assets/shaders/Cube3D.glsl");
-	m_Texture = Lotus::Texture2D::Create("assets/textures/Checkerboard.png");
-	m_ChernoLogoTexture = Lotus::Texture2D::Create("assets/textures/ChernoLogo.png");
-
-	std::dynamic_pointer_cast<Lotus::OpenGLShader>(CubeShader)->Bind();
-	std::dynamic_pointer_cast<Lotus::OpenGLShader>(CubeShader)->UploadUniformInt("u_Texture", 0);
+	m_CameraController.SetPosition({ 0.0f, 0.0f, 5.0f });
+	//m_CameraController.SetRotation(glm::normalize(glm::quat(1.0f, 0.09f, 0.04f, 0.0f)));
 
 	Lotus::FramebufferSpecification fbSpec;
 	fbSpec.Width = 1280;
@@ -68,48 +111,112 @@ void Sandbox3D::OnAttach()
 	m_Framebuffer = static_cast<std::shared_ptr<Lotus::Framebuffer>>(Lotus::Framebuffer::Create(fbSpec));
 }
 
-void Sandbox3D::OnDetach()
-{
-
-}
-          
 void Sandbox3D::OnUpdate(Lotus::Timestep ts)
 {
-	Camera camera(glm::vec3(0.0f, 0.0f, 3.0f));
-	glm::vec3 cubePositions[] = {
-		glm::vec3(0.0f,  0.0f,  0.0f),
-	};
+	m_CameraController.OnUpdate(ts);
+
 	m_Framebuffer->Bind();
 	uint32_t textureID = m_Framebuffer->GetColorAttachmentRendererID();
-	// Render
-	Lotus::RenderCommand::SetClearColor({ 0.1f, 0.1f, 0.1f, 1 });
+
+	Lotus::RenderCommand::SetClearColor({ 0.1f, 0.1f, 0.1f, 1.0f });
 	Lotus::RenderCommand::Clear();
-	auto CubeShader = m_ShaderLibrary.Get("Cube3D");
 
-	std::dynamic_pointer_cast<Lotus::OpenGLShader>(CubeShader)->Bind();
-	glm::mat4 scale = glm::scale(glm::mat4(1.0f), glm::vec3(0.1f));
-	glm::mat4 projection = glm::perspective(glm::radians(camera.Zoom), 1280.0f / 720.0f, 0.1f, 100.0f);
-	std::dynamic_pointer_cast<Lotus::OpenGLShader>(CubeShader)->UploadUniformMat4("projection", projection);
-	// camera/view transformation
-	glm::mat4 view = camera.GetViewMatrix();
-	std::dynamic_pointer_cast<Lotus::OpenGLShader>(CubeShader)->UploadUniformMat4("view", view);
-	glm::mat4 model = glm::mat4(1.0f);
-	model = glm::translate(model, cubePositions[0]);
-	float angle = 20.0f;
-	model = glm::rotate(model, glm::radians(angle), glm::vec3(1.0f, 0.3f, 0.5f));
-	std::dynamic_pointer_cast<Lotus::OpenGLShader>(CubeShader)->UploadUniformMat4("model", model);
+	m_CameraController.SetPerspective(m_isPerspective);
 
-	m_Texture->Bind();
-	Lotus::Renderer::Submit(CubeShader, m_VertexArray, glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
-	m_ChernoLogoTexture->Bind();
-	Lotus::Renderer::Submit(CubeShader, m_VertexArray, glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
+	m_DirectionalLight->SetColor(m_DirectionalLightProp.color);
+	m_DirectionalLight->SetDirection(m_DirectionalLightProp.direction);
+	m_DirectionalLight->SetIntensity(
+		m_DirectionalLightProp.ambient,
+		m_DirectionalLightProp.diffuse,
+		m_DirectionalLightProp.specular
+	);
 
+	for (int i = 0; i < m_PointLights.size(); ++i)
+	{
+		m_PointLights[i]->SetColor(m_PointLightProps[i].color);
+		m_PointLights[i]->SetPosition(m_PointLightProps[i].position);
+		m_PointLights[i]->SetIntensity(
+			m_PointLightProps[i].ambient,
+			m_PointLightProps[i].diffuse,
+			m_PointLightProps[i].specular
+		);
+		m_PointLights[i]->SetAttenuation(
+			m_PointLightProps[i].constant,
+			m_PointLightProps[i].linear,
+			m_PointLightProps[i].quadratic
+		);
+	}
+
+	m_SpotLight->SetColor(m_SpotLightProp.color);
+	m_SpotLight->SetPosition(m_CameraController.GetCamera().GetPosition());
+	m_SpotLight->SetDirection(-m_CameraController.GetCamera().GetZAxis());
+	m_SpotLight->SetIntensity(
+		m_SpotLightProp.ambient,
+		m_SpotLightProp.diffuse,
+		m_SpotLightProp.specular
+	);
+	m_SpotLight->SetAttenuation(
+		m_SpotLightProp.constant,
+		m_SpotLightProp.linear,
+		m_SpotLightProp.quadratic
+	);
+	m_SpotLight->SetCutOffs(
+		glm::cos(glm::radians(m_SpotLightProp.cutOff)),
+		glm::cos(glm::radians(m_SpotLightProp.cutOff + m_SpotLightProp.epsilon))
+	);
+
+	Lotus::Renderer::BeginScene(
+		m_CameraController.GetCamera(),
+		m_DirectionalLight, m_PointLights, m_SpotLight
+	);
+	glm::vec3 cubePositions[] = {
+		glm::vec3(0.0f,  0.0f,  0.0f),
+		glm::vec3(2.0f,  5.0f, -15.0f),
+		glm::vec3(-1.5f, -2.2f, -2.5f),
+		glm::vec3(-3.8f, -2.0f, -12.3f),
+		glm::vec3(2.4f, -0.4f, -3.5f),
+		glm::vec3(-1.7f,  3.0f, -7.5f),
+		glm::vec3(1.3f, -2.0f, -2.5f),
+		glm::vec3(1.5f,  2.0f, -2.5f),
+		glm::vec3(1.5f,  0.2f, -1.5f),
+		glm::vec3(-1.3f,  1.0f, -1.5f)
+	};
+	for (unsigned int i = 0; i < 1; i++)
+	{
+		glm::mat4 modelMatrix = glm::translate(glm::mat4(1.0f), m_ModelPos);
+		modelMatrix = glm::translate(modelMatrix, cubePositions[i]);
+		float angle = 20.0f * i;
+		modelMatrix = glm::rotate(modelMatrix, glm::radians(angle), glm::vec3(1.0f, 0.3f, 0.5f));
+		modelMatrix = glm::scale(modelMatrix, glm::vec3(m_ModelScale));
+		Lotus::Renderer::Submit(
+			*m_Model, modelMatrix
+		);
+	}
+	for (int i = 0; i < m_PointLights.size(); ++i)
+	{
+		Lotus::Renderer::Submit(
+			m_PointLightVA, m_PointLights[i],
+			glm::translate(glm::mat4(1.0f), m_PointLightProps[i].position)
+		);
+	}
 	Lotus::Renderer::EndScene();
+}
+
+void Sandbox3D::OnDetach()
+{
+	m_Model.reset();
+
+	m_DirectionalLight.reset();
+
+	m_PointLightVA.reset();
+	m_PointLights.clear();
+	m_PointLightProps.clear();
 }
 
 void Sandbox3D::OnImGuiRender()
 {
-	// Note: Switch this to true to enable dockspace
+	//----------------------------------
+		// Note: Switch this to true to enable dockspace
 	static bool dockingEnabled = true;
 	if (dockingEnabled)
 	{
@@ -172,49 +279,83 @@ void Sandbox3D::OnImGuiRender()
 			ImGui::EndMenuBar();
 		}
 
-		ImGui::Begin("Settings");
-
-
-		//ImGui::ColorEdit4("Square Color", glm::value_ptr(m_SquareColor));
-
-		uint32_t textureID = m_ChernoLogoTexture->GetRendererID();
-		ImGui::Image((void*)textureID, ImVec2{ 256.0f, 256.0f });
+		ImGui::Begin("Model Settings");
+		ImGui::DragFloat3("Model Position", glm::value_ptr(m_ModelPos), 0.1f);
+		ImGui::SliderFloat("Model Scale", &m_ModelScale, 0.0f, 2.0f);
 		ImGui::End();
 
+		ImGui::Begin("Directional Light");
+		ImGui::DragFloat3("Direction", glm::value_ptr(m_DirectionalLightProp.direction), 0.1f);
+		ImGui::SliderFloat3("Color", glm::value_ptr(m_DirectionalLightProp.color), 0.0f, 1.0f);
+		ImGui::SliderFloat3("Intensity (Ambient, Diffuse, and Specular Light)", &(m_DirectionalLightProp.ambient), 0.0f, 1.0f);
 		ImGui::End();
-	}
-	else
-	{
-		ImGui::Begin("Settings");
+
+		ImGui::Begin("Point Lights");
+		for (int i = 0; i < m_PointLights.size(); ++i)
+		{
+			std::string hint = std::to_string(i);
+			ImGui::RadioButton(hint.c_str(), &m_PointLightActivated, i);
+			if (i < m_PointLights.size() - 1)
+			{
+				ImGui::SameLine();
+			}
+		}
+		ImGui::DragFloat3("Position", glm::value_ptr(m_PointLightProps[m_PointLightActivated].position), 0.1f);
+		ImGui::SliderFloat3("Color", glm::value_ptr(m_PointLightProps[m_PointLightActivated].color), 0.0f, 1.0f);
+		ImGui::SliderFloat3("Intensity (Ambient, Diffuse, and Specular Light)", &(m_PointLightProps[m_PointLightActivated].ambient), 0.0f, 1.0f);
+		ImGui::SliderFloat3("Attenuation", &(m_PointLightProps[m_PointLightActivated].constant), 0.0f, 1.0f);
+		ImGui::End();
+
+		ImGui::Begin("Spot Light");
+		ImGui::SliderFloat3("Color", glm::value_ptr(m_SpotLightProp.color), 0.0f, 1.0f);
+		ImGui::SliderFloat3("Intensity (Ambient, Diffuse, and Specular Light)", &(m_SpotLightProp.ambient), 0.0f, 1.0f);
+		ImGui::SliderFloat3("Attenuation", &(m_SpotLightProp.constant), 0.0f, 1.0f);
+		ImGui::SliderFloat("Light CutOff", &m_SpotLightProp.cutOff, 0.0f, 90.0f);
+		ImGui::SliderFloat("Light CutOff Epsilon", &m_SpotLightProp.epsilon, 0, 90.0f - m_SpotLightProp.cutOff);
+		ImGui::End();
+
+		ImGui::Begin("Camera Status");
+		ImGui::Checkbox("Perspective", &m_isPerspective);
+		// show the current camera state
+		const glm::vec3& cameraPos = m_CameraController.GetCamera().GetPosition();
+		ImGui::Text("Position: (%.1f, %.1f, %.1f)", cameraPos.x, cameraPos.y, cameraPos.z);
+		ImGui::Text("AspectRatio: %.2f, Fovy: %.1f, Zoom: %.1f", m_CameraController.GetAspectRatio(), m_CameraController.GetFovy(), m_CameraController.GetZoomLevel());
+		const glm::quat& cameraRotation = m_CameraController.GetCamera().GetRotation();
+		ImGui::Text("Rotation: %.2f + %.2fi + %.2fj + %.2fk (Norm: %.2f)", cameraRotation.w, cameraRotation.x, cameraRotation.y, cameraRotation.z, glm::length(cameraRotation));
+		const glm::vec3& cameraX = m_CameraController.GetCamera().GetXAxis();
+		ImGui::Text("X: (%.2f, %.2f, %.2f)", cameraX.x, cameraX.y, cameraX.z);
+		const glm::vec3& cameraY = m_CameraController.GetCamera().GetYAxis();
+		ImGui::Text("Y: (%.2f, %.2f, %.2f)", cameraY.x, cameraY.y, cameraY.z);
+		const glm::vec3& cameraZ = m_CameraController.GetCamera().GetZAxis();
+		ImGui::Text("Z: (%.2f, %.2f, %.2f)", cameraZ.x, cameraZ.y, cameraZ.z);
+		ImGui::End();
 
 
-		//ImGui::ColorEdit4("Square Color", glm::value_ptr(m_SquareColor));
-
-		uint32_t textureID = m_ChernoLogoTexture->GetRendererID();
-		ImGui::Image((void*)textureID, ImVec2{ 256.0f, 256.0f });
 		ImGui::End();
 	}
 
 	ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2{ 0, 0 });
-	ImGui::Begin("Viewport");
-	ImVec2 viewportPanelSize = ImGui::GetContentRegionAvail();
-	if (m_ViewportSize != *((glm::vec2*)&viewportPanelSize))
-	{
-		m_Framebuffer->Resize((uint32_t)viewportPanelSize.x, (uint32_t)viewportPanelSize.y);
-		m_ViewportSize = { viewportPanelSize.x, viewportPanelSize.y };
+		ImGui::Begin("Viewport");
+		ImVec2 viewportPanelSize = ImGui::GetContentRegionAvail();
+		if (m_ViewportSize != *((glm::vec2*)&viewportPanelSize))
+		{
+			m_Framebuffer->Resize((uint32_t)viewportPanelSize.x, (uint32_t)viewportPanelSize.y);
+			m_ViewportSize = { viewportPanelSize.x, viewportPanelSize.y };
 
-	}
-	uint32_t textureID = m_Framebuffer->GetColorAttachmentRendererID();
-	LT_WARN("{0}, {1}", viewportPanelSize.x, viewportPanelSize.y);
-	ImGui::Image((void*)textureID, ImVec2{ viewportPanelSize.x, viewportPanelSize.y }, ImVec2{ 0, 1 }, ImVec2{ 1, 0 });
-	ImGui::End();
+		}
+		uint32_t textureID = m_Framebuffer->GetColorAttachmentRendererID();
+		LT_WARN("{0}, {1}", viewportPanelSize.x, viewportPanelSize.y);
+		ImGui::Image((void*)textureID, ImVec2{ viewportPanelSize.x, viewportPanelSize.y }, ImVec2{ 0, 1 }, ImVec2{ 1, 0 });
+		ImGui::End();
 	ImGui::PopStyleVar();
 
 
 
 	m_Framebuffer->Unbind();
+
 }
+
 void Sandbox3D::OnEvent(Lotus::Event& e)
 {
-
+	m_CameraController.OnEvent(e);
 }

@@ -1,5 +1,7 @@
 #pragma once
 
+#include <glad/glad.h>
+
 #include "Lotus/Renderer/Texture.h"
 
 namespace Lotus {
@@ -7,18 +9,27 @@ namespace Lotus {
 	class OpenGLTexture2D : public Texture2D
 	{
 	public:
+		OpenGLTexture2D(uint32_t width, uint32_t height, void* data = nullptr);
 		OpenGLTexture2D(const std::string& path);
 		virtual ~OpenGLTexture2D();
 
-		virtual uint32_t GetWidth() const override { return m_Width;  }
+		virtual uint32_t GetWidth() const override { return m_Width; }
 		virtual uint32_t GetHeight() const override { return m_Height; }
-		virtual uint32_t GetRendererID() const override { return m_RendererID; }
+
+		virtual void SetData(void* data, uint32_t size) override;
 
 		virtual void Bind(uint32_t slot = 0) const override;
+
+		virtual void SetTexWrapS(int param);
+		virtual void SetTexWrapT(int param);
+	private:
+		void Init();
+		int GetGLParam(int param) const;
 	private:
 		std::string m_Path;
-		uint32_t m_Width, m_Height;
+		uint32_t m_Width, m_Height, m_Channels;
 		uint32_t m_RendererID;
+		GLenum m_InternalFormat = 0, m_DataFormat = 0;
 	};
 
 }

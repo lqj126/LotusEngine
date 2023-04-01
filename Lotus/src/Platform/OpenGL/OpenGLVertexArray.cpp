@@ -1,6 +1,5 @@
 #include "ltpch.h"
 #include "OpenGLVertexArray.h"
-
 #include <glad/glad.h>
 
 namespace Lotus {
@@ -9,17 +8,17 @@ namespace Lotus {
 	{
 		switch (type)
 		{
-			case Lotus::ShaderDataType::Float:    return GL_FLOAT;
-			case Lotus::ShaderDataType::Float2:   return GL_FLOAT;
-			case Lotus::ShaderDataType::Float3:   return GL_FLOAT;
-			case Lotus::ShaderDataType::Float4:   return GL_FLOAT;
-			case Lotus::ShaderDataType::Mat3:     return GL_FLOAT;
-			case Lotus::ShaderDataType::Mat4:     return GL_FLOAT;
-			case Lotus::ShaderDataType::Int:      return GL_INT;
-			case Lotus::ShaderDataType::Int2:     return GL_INT;
-			case Lotus::ShaderDataType::Int3:     return GL_INT;
-			case Lotus::ShaderDataType::Int4:     return GL_INT;
-			case Lotus::ShaderDataType::Bool:     return GL_BOOL;
+		case ShaderDataType::Float:		return GL_FLOAT;
+		case ShaderDataType::Float2:	return GL_FLOAT;
+		case ShaderDataType::Float3:	return GL_FLOAT;
+		case ShaderDataType::Float4:	return GL_FLOAT;
+		case ShaderDataType::Mat3:		return GL_FLOAT;
+		case ShaderDataType::Mat4:		return GL_FLOAT;
+		case ShaderDataType::Int:		return GL_INT;
+		case ShaderDataType::Int2:		return GL_INT;
+		case ShaderDataType::Int3:		return GL_INT;
+		case ShaderDataType::Int4:		return GL_INT;
+		case ShaderDataType::Bool:		return GL_BOOL;
 		}
 
 		LT_CORE_ASSERT(false, "Unknown ShaderDataType!");
@@ -28,7 +27,7 @@ namespace Lotus {
 
 	OpenGLVertexArray::OpenGLVertexArray()
 	{
-		glCreateVertexArrays(1, &m_RendererID);
+		glGenVertexArrays(1, &m_RendererID);
 	}
 
 	OpenGLVertexArray::~OpenGLVertexArray()
@@ -46,35 +45,53 @@ namespace Lotus {
 		glBindVertexArray(0);
 	}
 
-	void OpenGLVertexArray::AddVertexBuffer(const std::shared_ptr<VertexBuffer>& vertexBuffer)
+	void OpenGLVertexArray::AddVertexBuffer(const Ref<VertexBuffer>& vertexBuffer)
 	{
 		LT_CORE_ASSERT(vertexBuffer->GetLayout().GetElements().size(), "Vertex Buffer has no layout!");
 
 		glBindVertexArray(m_RendererID);
 		vertexBuffer->Bind();
 
+		uint32_t  index = 0;
 		const auto& layout = vertexBuffer->GetLayout();
 		for (const auto& element : layout)
 		{
-			glEnableVertexAttribArray(m_VertexBufferIndex);
-			glVertexAttribPointer(m_VertexBufferIndex,
+			glEnableVertexAttribArray(index);
+			glVertexAttribPointer(index,
 				element.GetComponentCount(),
 				ShaderDataTypeToOpenGLBaseType(element.Type),
 				element.Normalized ? GL_TRUE : GL_FALSE,
 				layout.GetStride(),
-				(const void*)(intptr_t)element.Offset);
-			m_VertexBufferIndex++;
+				(const void*)element.Offset);
+			index++;
 		}
 
 		m_VertexBuffers.push_back(vertexBuffer);
 	}
 
-	void OpenGLVertexArray::SetIndexBuffer(const std::shared_ptr<IndexBuffer>& indexBuffer)
+	void OpenGLVertexArray::SetIndexBuffer(const Ref<IndexBuffer>& indexBuffer)
 	{
 		glBindVertexArray(m_RendererID);
 		indexBuffer->Bind();
 
 		m_IndexBuffer = indexBuffer;
+	}
+
+	uint32_t OpenGLVertexArray::GetVertexCount() const
+	{
+		if (m_IndexBuffer)
+		{
+			return m_IndexBuffer->GetCount();
+		}
+		else
+		{
+			uint32_t elementCount = 0;
+			for (const auto& vertexBuffer : m_VertexBuffers)
+			{
+				elementCount += vertexBuffer->GetVertexCount();
+			}
+			return elementCount;
+		}
 	}
 
 }
