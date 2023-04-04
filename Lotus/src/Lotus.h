@@ -34,6 +34,11 @@
 #include "Lotus/Renderer/OrthographicCamera.h"
 #include "Lotus/Renderer/OrthographicCameraController.h"
 
+#include "Lotus/Scene/Scene.h"
+#include "Lotus/Scene/Components.h"
+#include "Lotus/Scene/Entity.h"
+
+
 #include "Lotus/Renderer/Light.h"
 
 #include "Lotus/ImGui/ImGuiLayer.h"

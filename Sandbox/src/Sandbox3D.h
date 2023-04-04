@@ -68,5 +68,12 @@ private:
 	Lotus::Ref<Lotus::Texture2D> m_Texture;
 	Lotus::Ref<Lotus::Framebuffer> m_Framebuffer;
 	glm::vec2 m_ViewportSize = { 0.0f, 0.0f };
+
+
+	Lotus::Ref<Lotus::Scene> m_ActiveScene;
+	Lotus::Ref<Lotus::Entity> m_ModelEntity;
+	Lotus::Entity m_LightEntity;
+	Lotus::Entity m_CameraEntity;
+	//Lotus::Entity m_ModelEntity;
 };
 

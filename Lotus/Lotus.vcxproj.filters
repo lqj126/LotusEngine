@@ -52,6 +52,9 @@
     <Filter Include="vendor\stb_image">
       <UniqueIdentifier>{0DA0BA59-F998-D9AB-22CB-BE300E23B9B7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Lotus\Scene">
+      <UniqueIdentifier>{c45fe10f-bed2-47e6-b82d-a5c6e8390cfb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Lotus.h">
@@ -1452,6 +1455,15 @@
     <ClInclude Include="src\Lotus\Renderer\Renderer2D.h">
       <Filter>src\Lotus\Renderer</Filter>
     </ClInclude>
+    <ClInclude Include="src\Lotus\Scene\Entity.h">
+      <Filter>src\Lotus\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Lotus\Scene\Components.h">
+      <Filter>src\Lotus\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Lotus\Scene\Scene.h">
+      <Filter>src\Lotus\Scene</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Lotus\Core\Application.cpp">
@@ -1558,6 +1570,12 @@
     </ClCompile>
     <ClCompile Include="src\Lotus\Renderer\Renderer2D.cpp">
       <Filter>src\Lotus\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Lotus\Scene\Entity.cpp">
+      <Filter>src\Lotus\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Lotus\Scene\Scene.cpp">
+      <Filter>src\Lotus\Scene</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

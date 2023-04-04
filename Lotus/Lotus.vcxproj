@@ -79,7 +79,7 @@
       <PrecompiledHeaderFile>ltpch.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;LT_PLATFORM_WINDOWS;LT_BUILD_DLL;GLFW_INCLUDE_NONE;LT_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>src;vendor\spdlog\include;vendor\GLFW\include;vendor\Glad\include;vendor\imgui;vendor\glm;vendor\stb_image;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>src;vendor\spdlog\include;vendor\GLFW\include;vendor\Glad\include;vendor\imgui;vendor\glm;vendor\stb_image;vendor\entt\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
       <MinimalRebuild>false</MinimalRebuild>
@@ -146,6 +146,7 @@
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="src\Lotus\Scene\Entity.h" />
     <ClInclude Include="src\Lotus\Renderer\Renderer2D.h" />
     <ClInclude Include="src\Lotus\Renderer\CameraController.h" />
     <ClInclude Include="src\Lotus\Core\AssetsManager.h" />
@@ -184,6 +185,8 @@
     <ClInclude Include="src\Lotus\Renderer\Texture.h" />
     <ClInclude Include="src\Lotus\Renderer\VertexArray.h" />
     <ClInclude Include="src\Lotus\Renderer\Camera.h" />
+    <ClInclude Include="src\Lotus\Scene\Components.h" />
+    <ClInclude Include="src\Lotus\Scene\Scene.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLBuffer.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLContext.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLFramebuffer.h" />
@@ -614,6 +617,7 @@
     <ClInclude Include="src\Lotus\Renderer\Vertex.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Lotus\Scene\Entity.cpp" />
     <ClCompile Include="src\Lotus\Renderer\Renderer2D.cpp" />
     <ClCompile Include="src\Lotus\Renderer\CameraController.cpp" />
     <ClCompile Include="src\Lotus\Core\AssetsManager.cpp" />
@@ -638,6 +642,7 @@
     <ClCompile Include="src\Lotus\Renderer\Shader.cpp" />
     <ClCompile Include="src\Lotus\Renderer\Texture.cpp" />
     <ClCompile Include="src\Lotus\Renderer\VertexArray.cpp" />
+    <ClCompile Include="src\Lotus\Scene\Scene.cpp" />
     <ClCompile Include="src\Platform\OpenGL\OpenGLBuffer.cpp" />
     <ClCompile Include="src\Platform\OpenGL\OpenGLContext.cpp" />
     <ClCompile Include="src\Platform\OpenGL\OpenGLFramebuffer.cpp" />

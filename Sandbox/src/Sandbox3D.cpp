@@ -4,6 +4,7 @@
 
 #include <numeric>
 
+
 Sandbox3D::Sandbox3D() :
 	m_CameraController(
 		true, (float)Lotus::DEFAULT_WINDOW_WIDTH / (float)Lotus::DEFAULT_WINDOW_HEIGHT
@@ -109,6 +110,14 @@ void Sandbox3D::OnAttach()
 	fbSpec.Width = 1280;
 	fbSpec.Height = 720;
 	m_Framebuffer = static_cast<std::shared_ptr<Lotus::Framebuffer>>(Lotus::Framebuffer::Create(fbSpec));
+
+	m_ActiveScene = Lotus::CreateRef<Lotus::Scene>();
+
+	// Entity
+	auto square = m_ActiveScene->CreateEntity("annosuit");
+	square.AddComponent<Lotus::ModelComponent>();
+
+	//m_SquareEntity = square;
 }
 
 void Sandbox3D::OnUpdate(Lotus::Timestep ts)
@@ -181,7 +190,7 @@ void Sandbox3D::OnUpdate(Lotus::Timestep ts)
 		glm::vec3(1.5f,  0.2f, -1.5f),
 		glm::vec3(-1.3f,  1.0f, -1.5f)
 	};
-	for (unsigned int i = 0; i < 1; i++)
+	for (unsigned int i = 0; i < 3; i++)
 	{
 		glm::mat4 modelMatrix = glm::translate(glm::mat4(1.0f), m_ModelPos);
 		modelMatrix = glm::translate(modelMatrix, cubePositions[i]);
