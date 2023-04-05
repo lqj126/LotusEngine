@@ -16,6 +16,7 @@ namespace Lotus {
 		template<typename T, typename... Args>
 		T& AddComponent(Args&&... args)
 		{
+
 			LT_CORE_ASSERT(!HasComponent<T>(), "Entity already has component!");
 			return m_Scene->m_Registry.emplace<T>(m_EntityHandle, std::forward<Args>(args)...);
 		}
@@ -45,5 +46,7 @@ namespace Lotus {
 		entt::entity m_EntityHandle{ 0 };
 		Scene* m_Scene = nullptr;
 	};
+
+
 
 }

@@ -3,23 +3,13 @@
 
 #include "Components.h"
 #include "Lotus/Renderer/Renderer2D.h"
+#include "Lotus/Renderer/Renderer.h"
 
 #include <glm/glm.hpp>
 
 #include "Entity.h"
 
 namespace Lotus {
-
-	static void DoMath(const glm::mat4& transform)
-	{
-
-	}
-
-	static void OnTransformConstruct(entt::registry& registry, entt::entity entity)
-	{
-
-	}
-
 	Scene::Scene()
 	{
 		
@@ -47,6 +37,27 @@ namespace Lotus {
 
 			//Renderer2D::DrawQuad(transform, sprite.Color);
 		}
+
+		auto view = m_Registry.view<ModelComponent>();
+		for (auto entity : view)
+		{
+			auto& [c_model] = view.get<ModelComponent>(entity);
+
+			auto& Model = c_model;
+			glm::vec3 m_ModelPos = { 0.0f, -1.3f, 0.0f };
+			glm::vec3 cubePositions[] = {glm::vec3(0.0f,  0.0f,  0.0f), };
+
+
+			glm::mat4 modelMatrix = glm::translate(glm::mat4(1.0f), m_ModelPos);
+			modelMatrix = glm::translate(modelMatrix, cubePositions[0]);
+			float angle = 20.0f * 0;
+			modelMatrix = glm::rotate(modelMatrix, glm::radians(angle), glm::vec3(1.0f, 0.3f, 0.5f));
+			modelMatrix = glm::scale(modelMatrix, glm::vec3(0.2f));
+			Renderer::Submit(
+				*Model, modelMatrix
+			);
+		}
+
 
 
 	}

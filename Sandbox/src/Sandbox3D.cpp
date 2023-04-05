@@ -1,9 +1,11 @@
 #include "Sandbox3D.h"
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
+#include <Lotus/Scene/Scene.h>
+#include <Lotus/Scene/Components.h>
+#include <Lotus/Scene/Entity.h>
 
 #include <numeric>
-
 
 Sandbox3D::Sandbox3D() :
 	m_CameraController(
@@ -15,6 +17,7 @@ Sandbox3D::Sandbox3D() :
 
 void Sandbox3D::OnAttach()
 {
+	
 	m_Model = Lotus::CreateRef<Lotus::Model>("H:/Dev/Lotus/Sandbox/assets/models/nanosuit/nanosuit.obj");
 
 	//light source
@@ -84,7 +87,7 @@ void Sandbox3D::OnAttach()
 	};
 	for (int i = 0; i < 4; ++i)
 	{
-		PointLightProps prop = PointLightProps();
+		Lotus::PointLightProps prop = Lotus::PointLightProps();
 		prop.position = pointLightPositions[i];
 		m_PointLightProps.push_back(prop);
 
@@ -106,18 +109,33 @@ void Sandbox3D::OnAttach()
 	m_CameraController.SetPosition({ 0.0f, 0.0f, 5.0f });
 	//m_CameraController.SetRotation(glm::normalize(glm::quat(1.0f, 0.09f, 0.04f, 0.0f)));
 
+
+	//Framebuffer 
 	Lotus::FramebufferSpecification fbSpec;
 	fbSpec.Width = 1280;
 	fbSpec.Height = 720;
 	m_Framebuffer = static_cast<std::shared_ptr<Lotus::Framebuffer>>(Lotus::Framebuffer::Create(fbSpec));
 
+
+	//Create Scene
 	m_ActiveScene = Lotus::CreateRef<Lotus::Scene>();
+	auto e_model = m_ActiveScene->CreateEntity("Model");
+	auto& c_model = e_model.AddComponent<Lotus::ModelComponent>();
+	auto& CMP = e_model.GetComponent<Lotus::ModelComponent>().Model;
 
-	// Entity
-	auto square = m_ActiveScene->CreateEntity("annosuit");
-	square.AddComponent<Lotus::ModelComponent>();
+	CMP = Lotus::CreateRef<Lotus::Model>("H:/Dev/Lotus/Sandbox/assets/models/nanosuit/nanosuit.obj");
+	/*
+	//Create Scene
+	m_ActiveScene = Lotus::CreateRef<Lotus::Scene>();
+	auto pointlight = m_ActiveScene->CreateEntity("PointLight");
 
-	//m_SquareEntity = square;
+	auto& plightCMP = pointlight.AddComponent<Lotus::PointLightComponent>();
+	auto& CMP = pointlight.GetComponent<Lotus::TransformComponent>();
+	//auto& ccc = pointlight.GetComponent<Lotus::PointLightComponent>();
+	CMP.Position = { 10.0,20.0,3.3 };
+	//auto& tag = pointlight.GetComponent<Lotus::TagComponent>().Tag;
+	*/
+
 }
 
 void Sandbox3D::OnUpdate(Lotus::Timestep ts)
@@ -190,8 +208,10 @@ void Sandbox3D::OnUpdate(Lotus::Timestep ts)
 		glm::vec3(1.5f,  0.2f, -1.5f),
 		glm::vec3(-1.3f,  1.0f, -1.5f)
 	};
-	for (unsigned int i = 0; i < 3; i++)
-	{
+
+	/*
+	for (unsigned int i = 1; i < 3; i++)
+	{//m_ModelPos, TranslatePositions, angle, float m_ModelScale = 0.2f;  	m_Model = Lotus::CreateRef<Lotus::Model>("H:/Dev/Lotus/Sandbox/assets/models/nanosuit/nanosuit.obj");
 		glm::mat4 modelMatrix = glm::translate(glm::mat4(1.0f), m_ModelPos);
 		modelMatrix = glm::translate(modelMatrix, cubePositions[i]);
 		float angle = 20.0f * i;
@@ -201,6 +221,10 @@ void Sandbox3D::OnUpdate(Lotus::Timestep ts)
 			*m_Model, modelMatrix
 		);
 	}
+	*/
+	//Scene update
+	m_ActiveScene->OnUpdate(ts);
+
 	for (int i = 0; i < m_PointLights.size(); ++i)
 	{
 		Lotus::Renderer::Submit(
