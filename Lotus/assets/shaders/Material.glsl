@@ -58,7 +58,7 @@
 		float linear;
 		float quadratic;
 	};
-	#define MAX_POINT_LIGHT 4
+	#define MAX_POINT_LIGHT 1
 	uniform int u_PointLightCount = 0;
 	uniform PointLight u_PointLights[MAX_POINT_LIGHT];
 

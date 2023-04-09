@@ -1,8 +1,10 @@
 #pragma once
 #include <string>
 #include <glm/glm.hpp>
-#include "Lotus/Renderer/Camera.h"
 #include "Lotus/Scene/Entity.h"
+#include "Lotus/Scene/SceneCamera.h"
+
+#include "Lotus/Renderer/Camera.h"
 #include "Lotus/Renderer/Texture.h"
 #include "Lotus/Renderer/Mesh.h"
 #include "Lotus/Renderer/Model.h"
@@ -62,12 +64,18 @@ namespace Lotus {
 
 	struct ModelComponent
 	{
-		Lotus::Ref<Lotus::Model> Model;
+		Ref<Model> Model;
+		glm::vec3 ModelPos;
+		float ModelScale = 0.2f;
+		float ModelAngle = 20.0f;
 
 		ModelComponent() = default;
 		ModelComponent(const ModelComponent&) = default;
-		ModelComponent(const Ref<Lotus::Model> model)
-			: Model(model) {}
+		ModelComponent(	const Ref<Lotus::Model> model, 
+						glm::vec3 modelPos = { 0.0f, -1.3f, 0.0f }, 
+						float modelScale = 0.2f, 
+						float modelAngle = 20.0f)
+			: Model(model), ModelPos(modelPos), ModelScale(modelScale), ModelAngle(modelAngle){}
 	};
 
 	struct MeshComponent
@@ -88,83 +96,75 @@ namespace Lotus {
 	
 	struct DirLightComponent
 	{
-		Ref<DirectionalLight> DirLight;
-		Ref<DirectionalLightProp> DirLightProp;
+		glm::vec3 Color;
+		glm::vec3 Direction;
+		float Diffuse_Intensity;
+		float Specular_Intensity;
+		float Ambient_Intensity;
 
 		DirLightComponent() = default;
 		DirLightComponent(const DirLightComponent&) = default;
-		DirLightComponent(const Ref<DirectionalLight> dirLight, Ref<DirectionalLightProp> dirLightProp)
-			: DirLight(dirLight), DirLightProp(dirLightProp){}
 	};
-	
+
 	struct PointLightComponent
 	{
-		/*
-		float lightVertices[] = {
-		-0.1f, -0.1f, -0.1f,
-		 0.1f, -0.1f, -0.1f,
-		 0.1f,  0.1f, -0.1f,
-		 0.1f,  0.1f, -0.1f,
-		-0.1f,  0.1f, -0.1f,
-		-0.1f, -0.1f, -0.1f,
+		glm::vec3 Color;
+		glm::vec3 Position;
+		float Diffuse_Intensity;
+		float Specular_Intensity;
+		float Ambient_Intensity;
+		//衰减系数（常数，一次项，二次项）
+		float Constant;
+		float Linear;
+		float Quadratic;
 
-		-0.1f, -0.1f,  0.1f,
-		 0.1f, -0.1f,  0.1f,
-		 0.1f,  0.1f,  0.1f,
-		 0.1f,  0.1f,  0.1f,
-		-0.1f,  0.1f,  0.1f,
-		-0.1f, -0.1f,  0.1f,
-
-		-0.1f,  0.1f,  0.1f,
-		-0.1f,  0.1f, -0.1f,
-		-0.1f, -0.1f, -0.1f,
-		-0.1f, -0.1f, -0.1f,
-		-0.1f, -0.1f,  0.1f,
-		-0.1f,  0.1f,  0.1f,
-
-		 0.1f,  0.1f,  0.1f,
-		 0.1f,  0.1f, -0.1f,
-		 0.1f, -0.1f, -0.1f,
-		 0.1f, -0.1f, -0.1f,
-		 0.1f, -0.1f,  0.1f,
-		 0.1f,  0.1f,  0.1f,
-
-		-0.1f, -0.1f, -0.1f,
-		 0.1f, -0.1f, -0.1f,
-		 0.1f, -0.1f,  0.1f,
-		 0.1f, -0.1f,  0.1f,
-		-0.1f, -0.1f,  0.1f,
-		-0.1f, -0.1f, -0.1f,
-
-		-0.1f,  0.1f, -0.1f,
-		 0.1f,  0.1f, -0.1f,
-		 0.1f,  0.1f,  0.1f,
-		 0.1f,  0.1f,  0.1f,
-		-0.1f,  0.1f,  0.1f,
-		-0.1f,  0.1f, -0.1f
-		};
-		*/
-		Ref<VertexArray> m_PointLightVA;
-		glm::vec3 pointLightPosition;
-		Ref<PointLight> PLight;
-		Ref<PointLightProps> PLightProps;
-
-	
 		PointLightComponent() = default;
 		PointLightComponent(const PointLightComponent&) = default;
 	};
 
 	struct SpotLightComponent
 	{
-		Ref<SpotLight> SpLight;
-		Ref<SpotLightProp> SpLightProp;
-		Ref<CameraController> CamController;
+		glm::vec3 Color;
+
+		float Diffuse_Intensity;
+		float Specular_Intensity;
+		float Ambient_Intensity;
+
+		float Constant;
+		float Linear;
+		float Quadratic;
+
+		float CutOff;
+		float Epsilon;
 	
 		SpotLightComponent() = default;
 		SpotLightComponent(const SpotLightComponent&) = default;
 	};
 
+
+
+
+	struct CameraComponent
+	{
+		Lotus::SceneCamera Camera;
+		bool Primary = true;
+		bool FixedAspectRatio = false;
+
+		CameraComponent() = default;
+		CameraComponent(const CameraComponent&) = default;
+	};
+
 	/*
+	struct CameraComponent
+	{
+		SceneCamera Camera;
+		bool Primary = true; // TODO: think about moving to Scene
+		bool FixedAspectRatio = false;
+
+		CameraComponent() = default;
+		CameraComponent(const CameraComponent&) = default;
+	};
+
 	struct MaterialComponent
 	{
 		MaterialComponent() = default;

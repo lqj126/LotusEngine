@@ -1,9 +1,7 @@
 #include "Sandbox3D.h"
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
-#include <Lotus/Scene/Scene.h>
-#include <Lotus/Scene/Components.h>
-#include <Lotus/Scene/Entity.h>
+
 
 #include <numeric>
 
@@ -18,16 +16,16 @@ Sandbox3D::Sandbox3D() :
 void Sandbox3D::OnAttach()
 {
 	
-	m_Model = Lotus::CreateRef<Lotus::Model>("H:/Dev/Lotus/Sandbox/assets/models/nanosuit/nanosuit.obj");
+	//m_Model = Lotus::CreateRef<Lotus::Model>("H:/Dev/Lotus/Sandbox/assets/models/nanosuit/nanosuit.obj");
 
 	//light source
-
+/*
 	// directional light
 	m_DirectionalLight = Lotus::CreateRef<Lotus::DirectionalLight>(
 		m_DirectionalLightProp.color, m_DirectionalLightProp.direction,
 		m_DirectionalLightProp.ambient, m_DirectionalLightProp.diffuse, m_DirectionalLightProp.specular
 		);
-
+*/
 	// point light
 	float lightVertices[] = {
 		-0.1f, -0.1f, -0.1f,
@@ -85,6 +83,8 @@ void Sandbox3D::OnAttach()
 		glm::vec3(-4.0f,  2.0f, -12.0f),
 		glm::vec3(0.0f,  0.0f, -3.0f)
 	};
+
+/*
 	for (int i = 0; i < 4; ++i)
 	{
 		Lotus::PointLightProps prop = Lotus::PointLightProps();
@@ -105,10 +105,10 @@ void Sandbox3D::OnAttach()
 		m_SpotLightProp.constant, m_SpotLightProp.linear, m_SpotLightProp.quadratic,
 		glm::cos(glm::radians(m_SpotLightProp.cutOff)), glm::cos(glm::radians(m_SpotLightProp.cutOff + m_SpotLightProp.epsilon))
 		);
-
+*/
 	m_CameraController.SetPosition({ 0.0f, 0.0f, 5.0f });
 	//m_CameraController.SetRotation(glm::normalize(glm::quat(1.0f, 0.09f, 0.04f, 0.0f)));
-
+	
 
 	//Framebuffer 
 	Lotus::FramebufferSpecification fbSpec;
@@ -119,11 +119,57 @@ void Sandbox3D::OnAttach()
 
 	//Create Scene
 	m_ActiveScene = Lotus::CreateRef<Lotus::Scene>();
-	auto e_model = m_ActiveScene->CreateEntity("Model");
-	auto& c_model = e_model.AddComponent<Lotus::ModelComponent>();
-	auto& CMP = e_model.GetComponent<Lotus::ModelComponent>().Model;
 
-	CMP = Lotus::CreateRef<Lotus::Model>("H:/Dev/Lotus/Sandbox/assets/models/nanosuit/nanosuit.obj");
+	e_model = m_ActiveScene->CreateEntity("Model");
+	auto& c_model = e_model.AddComponent<Lotus::ModelComponent>(
+		Lotus::CreateRef<Lotus::Model>("H:/Dev/Lotus/Sandbox/assets/models/nanosuit/nanosuit.obj"));
+
+	auto e_model2 = m_ActiveScene->CreateEntity("Model2");
+	auto& c_model2 = e_model2.AddComponent<Lotus::ModelComponent>(
+		Lotus::CreateRef<Lotus::Model>("H:/Dev/Lotus/Sandbox/assets/models/nanosuit/nanosuit.obj"));
+	e_model2.GetComponent<Lotus::ModelComponent>().ModelScale = 0.06;
+
+	auto e_dirLight = m_ActiveScene->CreateEntity("DirectionalLight");
+	auto& c_dirLight = e_dirLight.AddComponent<Lotus::DirLightComponent>(
+		m_DirectionalLightProp.color,
+		m_DirectionalLightProp.direction, 
+		m_DirectionalLightProp.diffuse, 
+		m_DirectionalLightProp.specular, 
+		m_DirectionalLightProp.ambient
+		);
+
+	Lotus::PointLightProps prop = Lotus::PointLightProps();
+	prop.position = glm::vec3(-4.0f, 2.0f, -12.0f);
+
+	auto e_pointLight = m_ActiveScene->CreateEntity("PointLight");
+	auto& c_pointLight = e_pointLight.AddComponent<Lotus::PointLightComponent>(
+		prop.color,
+		prop.position,
+		prop.ambient,
+		prop.diffuse,
+		prop.specular,
+		prop.constant,
+		prop.linear,
+		prop.quadratic
+		);
+
+
+
+
+	m_CameraEntity = m_ActiveScene->CreateEntity("mainCamera");
+	//m_CameraEntity.AddComponent<Lotus::TransformComponent>;
+	auto& transfromCMP = m_CameraEntity.GetComponent<Lotus::TransformComponent>();
+	transfromCMP.Position = { 0.0f,0.7f,1.5f };
+	auto& cmp = m_CameraEntity.AddComponent<Lotus::CameraComponent>();
+	cmp.Camera.SetViewportSize(1920, 1080);
+
+	/*
+	auto e_camera = m_ActiveScene->CreateEntity("Camera");
+	auto& c_camera = e_camera.AddComponent<Lotus::CameraComponent>(
+		Lotus::CreateRef<Lotus::CameraComponent>(true, (float)Lotus::DEFAULT_WINDOW_WIDTH / (float)Lotus::DEFAULT_WINDOW_HEIGHT));
+	auto& CMP = e_camera.GetComponent<Lotus::CameraComponent>().Camera.SetPosition({ 0.0f, 0.0f, 5.0f });
+
+
 	/*
 	//Create Scene
 	m_ActiveScene = Lotus::CreateRef<Lotus::Scene>();
@@ -150,14 +196,9 @@ void Sandbox3D::OnUpdate(Lotus::Timestep ts)
 
 	m_CameraController.SetPerspective(m_isPerspective);
 
-	m_DirectionalLight->SetColor(m_DirectionalLightProp.color);
-	m_DirectionalLight->SetDirection(m_DirectionalLightProp.direction);
-	m_DirectionalLight->SetIntensity(
-		m_DirectionalLightProp.ambient,
-		m_DirectionalLightProp.diffuse,
-		m_DirectionalLightProp.specular
-	);
 
+
+	/*
 	for (int i = 0; i < m_PointLights.size(); ++i)
 	{
 		m_PointLights[i]->SetColor(m_PointLightProps[i].color);
@@ -173,7 +214,8 @@ void Sandbox3D::OnUpdate(Lotus::Timestep ts)
 			m_PointLightProps[i].quadratic
 		);
 	}
-
+	*/
+	/*
 	m_SpotLight->SetColor(m_SpotLightProp.color);
 	m_SpotLight->SetPosition(m_CameraController.GetCamera().GetPosition());
 	m_SpotLight->SetDirection(-m_CameraController.GetCamera().GetZAxis());
@@ -191,11 +233,12 @@ void Sandbox3D::OnUpdate(Lotus::Timestep ts)
 		glm::cos(glm::radians(m_SpotLightProp.cutOff)),
 		glm::cos(glm::radians(m_SpotLightProp.cutOff + m_SpotLightProp.epsilon))
 	);
-
+	
 	Lotus::Renderer::BeginScene(
 		m_CameraController.GetCamera(),
 		m_DirectionalLight, m_PointLights, m_SpotLight
 	);
+	*/
 	glm::vec3 cubePositions[] = {
 		glm::vec3(0.0f,  0.0f,  0.0f),
 		glm::vec3(2.0f,  5.0f, -15.0f),
@@ -313,8 +356,19 @@ void Sandbox3D::OnImGuiRender()
 		}
 
 		ImGui::Begin("Model Settings");
-		ImGui::DragFloat3("Model Position", glm::value_ptr(m_ModelPos), 0.1f);
-		ImGui::SliderFloat("Model Scale", &m_ModelScale, 0.0f, 2.0f);
+		ImGui::DragFloat3("Model Position", glm::value_ptr(e_model.GetComponent<Lotus::ModelComponent>().ModelPos), 0.1f);
+		ImGui::SliderFloat("Model Scale", &(e_model.GetComponent<Lotus::ModelComponent>().ModelScale), 0.0f, 2.0f);
+		ImGui::End();
+
+		ImGui::Begin("Camera");
+		ImGui::Text("Camera Position: (%.1f, %.1f, %.1f)", 
+			m_CameraEntity.GetComponent<Lotus::CameraComponent>().Camera.GetPosition().x,
+			m_CameraEntity.GetComponent<Lotus::CameraComponent>().Camera.GetPosition().y,
+			m_CameraEntity.GetComponent<Lotus::CameraComponent>().Camera.GetPosition().z
+		);
+
+
+
 		ImGui::End();
 
 		ImGui::Begin("Directional Light");
@@ -323,21 +377,6 @@ void Sandbox3D::OnImGuiRender()
 		ImGui::SliderFloat3("Intensity (Ambient, Diffuse, and Specular Light)", &(m_DirectionalLightProp.ambient), 0.0f, 1.0f);
 		ImGui::End();
 
-		ImGui::Begin("Point Lights");
-		for (int i = 0; i < m_PointLights.size(); ++i)
-		{
-			std::string hint = std::to_string(i);
-			ImGui::RadioButton(hint.c_str(), &m_PointLightActivated, i);
-			if (i < m_PointLights.size() - 1)
-			{
-				ImGui::SameLine();
-			}
-		}
-		ImGui::DragFloat3("Position", glm::value_ptr(m_PointLightProps[m_PointLightActivated].position), 0.1f);
-		ImGui::SliderFloat3("Color", glm::value_ptr(m_PointLightProps[m_PointLightActivated].color), 0.0f, 1.0f);
-		ImGui::SliderFloat3("Intensity (Ambient, Diffuse, and Specular Light)", &(m_PointLightProps[m_PointLightActivated].ambient), 0.0f, 1.0f);
-		ImGui::SliderFloat3("Attenuation", &(m_PointLightProps[m_PointLightActivated].constant), 0.0f, 1.0f);
-		ImGui::End();
 
 		ImGui::Begin("Spot Light");
 		ImGui::SliderFloat3("Color", glm::value_ptr(m_SpotLightProp.color), 0.0f, 1.0f);

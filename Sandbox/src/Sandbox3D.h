@@ -45,8 +45,7 @@ private:
 
 
 	Lotus::Ref<Lotus::Scene> m_ActiveScene;
-	Lotus::Ref<Lotus::Entity> m_ModelEntity;
-	Lotus::Entity m_LightEntity;
+	Lotus::Entity e_model;
 	Lotus::Entity m_CameraEntity;
 	//Lotus::Entity m_ModelEntity;
 };

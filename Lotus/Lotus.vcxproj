@@ -146,6 +146,7 @@
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="src\Lotus\Scene\SceneCamera.h" />
     <ClInclude Include="src\Lotus\Scene\Entity.h" />
     <ClInclude Include="src\Lotus\Renderer\Renderer2D.h" />
     <ClInclude Include="src\Lotus\Renderer\CameraController.h" />
@@ -617,6 +618,7 @@
     <ClInclude Include="src\Lotus\Renderer\Vertex.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Lotus\Scene\SceneCamera.cpp" />
     <ClCompile Include="src\Lotus\Scene\Entity.cpp" />
     <ClCompile Include="src\Lotus\Renderer\Renderer2D.cpp" />
     <ClCompile Include="src\Lotus\Renderer\CameraController.cpp" />

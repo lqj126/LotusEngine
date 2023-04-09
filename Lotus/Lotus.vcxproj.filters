@@ -1464,6 +1464,9 @@
     <ClInclude Include="src\Lotus\Scene\Scene.h">
       <Filter>src\Lotus\Scene</Filter>
     </ClInclude>
+    <ClInclude Include="src\Lotus\Scene\SceneCamera.h">
+      <Filter>src\Lotus\Scene</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Lotus\Core\Application.cpp">
@@ -1575,6 +1578,9 @@
       <Filter>src\Lotus\Scene</Filter>
     </ClCompile>
     <ClCompile Include="src\Lotus\Scene\Scene.cpp">
+      <Filter>src\Lotus\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Lotus\Scene\SceneCamera.cpp">
       <Filter>src\Lotus\Scene</Filter>
     </ClCompile>
   </ItemGroup>
