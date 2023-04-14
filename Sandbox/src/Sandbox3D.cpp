@@ -181,7 +181,7 @@ void Sandbox3D::OnAttach()
 	CMP.Position = { 10.0,20.0,3.3 };
 	//auto& tag = pointlight.GetComponent<Lotus::TagComponent>().Tag;
 	*/
-
+	m_SceneHierarchyPanel.SetContext(m_ActiveScene);
 }
 
 void Sandbox3D::OnUpdate(Lotus::Timestep ts)
@@ -354,6 +354,8 @@ void Sandbox3D::OnImGuiRender()
 
 			ImGui::EndMenuBar();
 		}
+
+		m_SceneHierarchyPanel.OnImGuiRender();
 
 		ImGui::Begin("Model Settings");
 		ImGui::DragFloat3("Model Position", glm::value_ptr(e_model.GetComponent<Lotus::ModelComponent>().ModelPos), 0.1f);

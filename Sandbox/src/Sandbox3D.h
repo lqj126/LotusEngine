@@ -1,6 +1,7 @@
 #pragma once
 
 #include <Lotus.h>
+#include "Panels/SceneHierarchyPanel.h"
 
 #include "imgui/imgui.h"
 
@@ -48,5 +49,8 @@ private:
 	Lotus::Entity e_model;
 	Lotus::Entity m_CameraEntity;
 	//Lotus::Entity m_ModelEntity;
+
+	// Panels
+	Lotus::SceneHierarchyPanel m_SceneHierarchyPanel;
 };
 
