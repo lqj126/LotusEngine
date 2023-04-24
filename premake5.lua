@@ -23,7 +23,6 @@ IncludeDir["Glad"] = "Lotus/vendor/Glad/include"
 IncludeDir["ImGui"] = "Lotus/vendor/imgui"
 IncludeDir["glm"] = "Lotus/vendor/glm"
 IncludeDir["stb_image"] = "Lotus/vendor/stb_image"
-IncludeDir["entt"] = "Lotus/vendor/entt/include"
 
 group "Dependencies"
 	include "Lotus/vendor/GLFW"
@@ -69,7 +68,6 @@ project "Lotus"
 		"%{IncludeDir.ImGui}",
 		"%{IncludeDir.glm}",
 		"%{IncludeDir.stb_image}"
-		"%{IncludeDir.entt}"
 	}
 
 	links 

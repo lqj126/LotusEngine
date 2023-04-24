@@ -15,5 +15,6 @@ namespace Lotus {
 
 		virtual void DrawIndexed(uint32_t elementCount) override;
 		virtual void Draw(int first, uint32_t elementCount) override;  // draw without index buffer
+		virtual void DrawSphere() override;
 	};
 }

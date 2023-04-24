@@ -5,7 +5,7 @@
 namespace Lotus {
 	void DirectionalLight::Bind(const Ref<Shader>& shader) const
 	{
-		shader->Bind(); 
+		shader->Bind();  // TODO(islander): may be optimized out
 		shader->SetFloat3("u_DirectionalLight.color", GetColor());
 		shader->SetFloat3("u_DirectionalLight.direction", GetDirection());
 		shader->SetFloat("u_DirectionalLight.ambient", GetAmbientIntensity());
@@ -15,7 +15,7 @@ namespace Lotus {
 
 	void PointLight::Bind(const Ref<Shader>& shader, int index) const
 	{
-		shader->Bind();
+		shader->Bind();  // TODO(islander): may be optimized out
 		shader->SetFloat3(string_format("u_PointLights[%d].color", index), GetColor());
 		shader->SetFloat3(string_format("u_PointLights[%d].position", index), GetPosition());
 		shader->SetFloat(string_format("u_PointLights[%d].ambient", index), GetAmbientIntensity());
@@ -29,7 +29,7 @@ namespace Lotus {
 
 	void SpotLight::Bind(const Ref<Shader>& shader) const
 	{
-		shader->Bind();
+		shader->Bind();  // TODO(islander): may be optimized out
 		shader->SetFloat3("u_SpotLight.color", GetColor());
 		shader->SetFloat3("u_SpotLight.position", GetPosition());
 		shader->SetFloat3("u_SpotLight.direction", GetDirection());

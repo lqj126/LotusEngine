@@ -37,6 +37,7 @@ namespace Lotus {
 		inline const float GetFovy() const { return m_Fovy; }
 		inline const float GetAspectRatio() const { return m_AspectRatio; }
 
+		// TODO(islander): add euler angle supports
 	private:
 		glm::mat4 ComputePerspectiveProjectionMatrix();
 		glm::mat4 ComputeOrthographicProjectionMatrix();
@@ -69,7 +70,7 @@ namespace Lotus {
 		//---------------- input states ----------------
 		// Which button is currently pressed (record the first button that is pressed only)
 		int m_MouseButtonPressed = LT_MOUSE_BUTTON_NONE;
-
+		// TODO(islander): The value is passed as int, but use float for generally
 		glm::vec2 m_MouseButtonPressedPosition = glm::i32vec2(0.0f, 0.0f);
 	};
 

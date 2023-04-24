@@ -8,7 +8,6 @@ namespace Lotus {
 	class Camera
 	{
 	public:
-		//Camera() = default;
 		Camera(const glm::mat4& projectionMatrix = glm::mat4(1.0f));
 
 		void SetProjection(const glm::mat4& projectionMatrix);
@@ -40,8 +39,6 @@ namespace Lotus {
 		glm::vec3 m_CameraX = { 1.0f, 0.0f, 0.0f };
 		glm::vec3 m_CameraY = { 0.0f, 1.0f, 0.0f };
 		glm::vec3 m_CameraZ = { 0.0f, 0.0f, 1.0f };  // point to the camera back
-	protected:
-		glm::mat4 m_Projection = glm::mat4(1.0f);
 
 	};
 

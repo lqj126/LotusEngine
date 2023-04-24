@@ -168,38 +168,4 @@ namespace Lotus {
 		glm::vec3 m_Direction;
 		glm::vec3 m_Position;
 	};
-
-	struct DirectionalLightProp 
-	{
-		glm::vec3 direction = glm::vec3(-0.2f, -1.0f, -0.3f);
-		glm::vec3 color = glm::vec3(1.0f, 1.0f, 1.0f);
-		float ambient = 0.1f;
-		float diffuse = 1.0f;
-		float specular = 1.0f;
-	};
-
-	struct PointLightProps
-	{
-		glm::vec3 color = glm::vec3(1.0f, 1.0f, 1.0f);
-		glm::vec3 position = glm::vec3(-0.2f, -1.0f, -0.3f);
-		float ambient = 0.1f;
-		float diffuse = 1.0f;
-		float specular = 1.0f;
-		float constant = 1.0f;
-		float linear = 0.09f;
-		float quadratic = 0.032f;
-	};
-
-	struct SpotLightProp 
-	{
-		glm::vec3 color = glm::vec3(1.0f, 1.0f, 1.0f);
-		float ambient = 0.1f;
-		float diffuse = 1.0f;
-		float specular = 1.0f;
-		float constant = 1.0f;
-		float linear = 0.09f;
-		float quadratic = 0.032f;
-		float cutOff = 12.5f;
-		float epsilon = 5.0f;
-	};
 }

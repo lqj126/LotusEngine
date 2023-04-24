@@ -80,6 +80,7 @@ namespace Lotus {
 
 	void Renderer2D::DrawQuad(const glm::vec3& position, const glm::vec2& size, const Ref<Material>& material)
 	{
+		// TODO(islander): remove material for 2D
 		s_Data->QuadVertexArray->Bind();
 		RenderCommand::DrawIndexed(s_Data->QuadVertexArray->GetIndexBuffer()->GetCount());
 	}

@@ -95,8 +95,10 @@ namespace Lotus {
 				aiString str;
 				mat->GetTexture(aiType, i, &str);
 				std::string path = m_Directory + '/' + str.C_Str();
+				// TODO(islander): other textures
+				// TODO(islander): name as key for efficiency?
 				Ref<Texture2D> texture = std::dynamic_pointer_cast<Texture2D>(AssetsManager::LoadTexture(path, str.C_Str()));
-				material->SetTextureMap(texture, type);  
+				material->SetTextureMap(texture, type);  // TODO(islander): add instead of set
 			}
 		}
 		return material;

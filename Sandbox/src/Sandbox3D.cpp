@@ -2,7 +2,6 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
-
 #include <numeric>
 
 Sandbox3D::Sandbox3D() :
@@ -15,17 +14,17 @@ Sandbox3D::Sandbox3D() :
 
 void Sandbox3D::OnAttach()
 {
-	
-	//m_Model = Lotus::CreateRef<Lotus::Model>("H:/Dev/Lotus/Sandbox/assets/models/nanosuit/nanosuit.obj");
+	m_Model = Lotus::CreateRef<Lotus::Model>("C:/Users/BlueStoneLotus/Downloads/sponza_crytek_max_obj/sponza.obj");
+	//m_Model = Lotus::CreateRef<Lotus::Model>("C:/Users/BlueStoneLotus/Downloads/SciFiRoom_max_3ds/Scifi.3DS");
 
-	//light source
-/*
+	// *********************** light source
+
 	// directional light
 	m_DirectionalLight = Lotus::CreateRef<Lotus::DirectionalLight>(
 		m_DirectionalLightProp.color, m_DirectionalLightProp.direction,
 		m_DirectionalLightProp.ambient, m_DirectionalLightProp.diffuse, m_DirectionalLightProp.specular
 		);
-*/
+
 	// point light
 	float lightVertices[] = {
 		-0.1f, -0.1f, -0.1f,
@@ -83,11 +82,10 @@ void Sandbox3D::OnAttach()
 		glm::vec3(-4.0f,  2.0f, -12.0f),
 		glm::vec3(0.0f,  0.0f, -3.0f)
 	};
-
-/*
 	for (int i = 0; i < 4; ++i)
 	{
-		Lotus::PointLightProps prop = Lotus::PointLightProps();
+		// TODO(islander): casual code, redundant copy
+		PointLightProps prop = PointLightProps();
 		prop.position = pointLightPositions[i];
 		m_PointLightProps.push_back(prop);
 
@@ -105,83 +103,15 @@ void Sandbox3D::OnAttach()
 		m_SpotLightProp.constant, m_SpotLightProp.linear, m_SpotLightProp.quadratic,
 		glm::cos(glm::radians(m_SpotLightProp.cutOff)), glm::cos(glm::radians(m_SpotLightProp.cutOff + m_SpotLightProp.epsilon))
 		);
-*/
+
+	// view phong illumination clearly
 	m_CameraController.SetPosition({ 0.0f, 0.0f, 5.0f });
 	//m_CameraController.SetRotation(glm::normalize(glm::quat(1.0f, 0.09f, 0.04f, 0.0f)));
-	
 
-	//Framebuffer 
 	Lotus::FramebufferSpecification fbSpec;
 	fbSpec.Width = 1280;
 	fbSpec.Height = 720;
 	m_Framebuffer = static_cast<std::shared_ptr<Lotus::Framebuffer>>(Lotus::Framebuffer::Create(fbSpec));
-
-
-	//Create Scene
-	m_ActiveScene = Lotus::CreateRef<Lotus::Scene>();
-
-	e_model = m_ActiveScene->CreateEntity("Model");
-	auto& c_model = e_model.AddComponent<Lotus::ModelComponent>(
-		Lotus::CreateRef<Lotus::Model>("H:/Dev/Lotus/Sandbox/assets/models/nanosuit/nanosuit.obj"));
-
-	auto e_model2 = m_ActiveScene->CreateEntity("Model2");
-	auto& c_model2 = e_model2.AddComponent<Lotus::ModelComponent>(
-		Lotus::CreateRef<Lotus::Model>("H:/Dev/Lotus/Sandbox/assets/models/nanosuit/nanosuit.obj"));
-	e_model2.GetComponent<Lotus::ModelComponent>().ModelScale = 0.06;
-
-	auto e_dirLight = m_ActiveScene->CreateEntity("DirectionalLight");
-	auto& c_dirLight = e_dirLight.AddComponent<Lotus::DirLightComponent>(
-		m_DirectionalLightProp.color,
-		m_DirectionalLightProp.direction, 
-		m_DirectionalLightProp.diffuse, 
-		m_DirectionalLightProp.specular, 
-		m_DirectionalLightProp.ambient
-		);
-
-	Lotus::PointLightProps prop = Lotus::PointLightProps();
-	prop.position = glm::vec3(-4.0f, 2.0f, -12.0f);
-
-	auto e_pointLight = m_ActiveScene->CreateEntity("PointLight");
-	auto& c_pointLight = e_pointLight.AddComponent<Lotus::PointLightComponent>(
-		prop.color,
-		prop.position,
-		prop.ambient,
-		prop.diffuse,
-		prop.specular,
-		prop.constant,
-		prop.linear,
-		prop.quadratic
-		);
-
-
-
-
-	m_CameraEntity = m_ActiveScene->CreateEntity("mainCamera");
-	//m_CameraEntity.AddComponent<Lotus::TransformComponent>;
-	auto& transfromCMP = m_CameraEntity.GetComponent<Lotus::TransformComponent>();
-	transfromCMP.Position = { 0.0f,0.7f,1.5f };
-	auto& cmp = m_CameraEntity.AddComponent<Lotus::CameraComponent>();
-	cmp.Camera.SetViewportSize(1920, 1080);
-
-	/*
-	auto e_camera = m_ActiveScene->CreateEntity("Camera");
-	auto& c_camera = e_camera.AddComponent<Lotus::CameraComponent>(
-		Lotus::CreateRef<Lotus::CameraComponent>(true, (float)Lotus::DEFAULT_WINDOW_WIDTH / (float)Lotus::DEFAULT_WINDOW_HEIGHT));
-	auto& CMP = e_camera.GetComponent<Lotus::CameraComponent>().Camera.SetPosition({ 0.0f, 0.0f, 5.0f });
-
-
-	/*
-	//Create Scene
-	m_ActiveScene = Lotus::CreateRef<Lotus::Scene>();
-	auto pointlight = m_ActiveScene->CreateEntity("PointLight");
-
-	auto& plightCMP = pointlight.AddComponent<Lotus::PointLightComponent>();
-	auto& CMP = pointlight.GetComponent<Lotus::TransformComponent>();
-	//auto& ccc = pointlight.GetComponent<Lotus::PointLightComponent>();
-	CMP.Position = { 10.0,20.0,3.3 };
-	//auto& tag = pointlight.GetComponent<Lotus::TagComponent>().Tag;
-	*/
-	m_SceneHierarchyPanel.SetContext(m_ActiveScene);
 }
 
 void Sandbox3D::OnUpdate(Lotus::Timestep ts)
@@ -196,9 +126,14 @@ void Sandbox3D::OnUpdate(Lotus::Timestep ts)
 
 	m_CameraController.SetPerspective(m_isPerspective);
 
+	m_DirectionalLight->SetColor(m_DirectionalLightProp.color);
+	m_DirectionalLight->SetDirection(m_DirectionalLightProp.direction);
+	m_DirectionalLight->SetIntensity(
+		m_DirectionalLightProp.ambient,
+		m_DirectionalLightProp.diffuse,
+		m_DirectionalLightProp.specular
+	);
 
-
-	/*
 	for (int i = 0; i < m_PointLights.size(); ++i)
 	{
 		m_PointLights[i]->SetColor(m_PointLightProps[i].color);
@@ -214,8 +149,7 @@ void Sandbox3D::OnUpdate(Lotus::Timestep ts)
 			m_PointLightProps[i].quadratic
 		);
 	}
-	*/
-	/*
+
 	m_SpotLight->SetColor(m_SpotLightProp.color);
 	m_SpotLight->SetPosition(m_CameraController.GetCamera().GetPosition());
 	m_SpotLight->SetDirection(-m_CameraController.GetCamera().GetZAxis());
@@ -233,12 +167,11 @@ void Sandbox3D::OnUpdate(Lotus::Timestep ts)
 		glm::cos(glm::radians(m_SpotLightProp.cutOff)),
 		glm::cos(glm::radians(m_SpotLightProp.cutOff + m_SpotLightProp.epsilon))
 	);
-	
+
 	Lotus::Renderer::BeginScene(
 		m_CameraController.GetCamera(),
 		m_DirectionalLight, m_PointLights, m_SpotLight
 	);
-	*/
 	glm::vec3 cubePositions[] = {
 		glm::vec3(0.0f,  0.0f,  0.0f),
 		glm::vec3(2.0f,  5.0f, -15.0f),
@@ -251,10 +184,8 @@ void Sandbox3D::OnUpdate(Lotus::Timestep ts)
 		glm::vec3(1.5f,  0.2f, -1.5f),
 		glm::vec3(-1.3f,  1.0f, -1.5f)
 	};
-
-	/*
-	for (unsigned int i = 1; i < 3; i++)
-	{//m_ModelPos, TranslatePositions, angle, float m_ModelScale = 0.2f;  	m_Model = Lotus::CreateRef<Lotus::Model>("H:/Dev/Lotus/Sandbox/assets/models/nanosuit/nanosuit.obj");
+	for (unsigned int i = 0; i < 1; i++)
+	{
 		glm::mat4 modelMatrix = glm::translate(glm::mat4(1.0f), m_ModelPos);
 		modelMatrix = glm::translate(modelMatrix, cubePositions[i]);
 		float angle = 20.0f * i;
@@ -264,10 +195,6 @@ void Sandbox3D::OnUpdate(Lotus::Timestep ts)
 			*m_Model, modelMatrix
 		);
 	}
-	*/
-	//Scene update
-	m_ActiveScene->OnUpdate(ts);
-
 	for (int i = 0; i < m_PointLights.size(); ++i)
 	{
 		Lotus::Renderer::Submit(
@@ -355,34 +282,36 @@ void Sandbox3D::OnImGuiRender()
 			ImGui::EndMenuBar();
 		}
 
-		m_SceneHierarchyPanel.OnImGuiRender();
-
 		ImGui::Begin("Model Settings");
-		ImGui::DragFloat3("Model Position", glm::value_ptr(e_model.GetComponent<Lotus::ModelComponent>().ModelPos), 0.1f);
-		ImGui::SliderFloat("Model Scale", &(e_model.GetComponent<Lotus::ModelComponent>().ModelScale), 0.0f, 2.0f);
-		ImGui::End();
-
-		ImGui::Begin("Camera");
-		ImGui::Text("Camera Position: (%.1f, %.1f, %.1f)", 
-			m_CameraEntity.GetComponent<Lotus::CameraComponent>().Camera.GetPosition().x,
-			m_CameraEntity.GetComponent<Lotus::CameraComponent>().Camera.GetPosition().y,
-			m_CameraEntity.GetComponent<Lotus::CameraComponent>().Camera.GetPosition().z
-		);
-
-
-
+		ImGui::DragFloat3("Model Position", glm::value_ptr(m_ModelPos), 0.1f);
+		ImGui::SliderFloat("Model Scale", &m_ModelScale, 0.0f, 2.0f);
 		ImGui::End();
 
 		ImGui::Begin("Directional Light");
 		ImGui::DragFloat3("Direction", glm::value_ptr(m_DirectionalLightProp.direction), 0.1f);
 		ImGui::SliderFloat3("Color", glm::value_ptr(m_DirectionalLightProp.color), 0.0f, 1.0f);
-		ImGui::SliderFloat3("Intensity (Ambient, Diffuse, and Specular Light)", &(m_DirectionalLightProp.ambient), 0.0f, 1.0f);
+		ImGui::SliderFloat3("Intensity (a/d/s)", &(m_DirectionalLightProp.ambient), 0.0f, 1.0f);
 		ImGui::End();
 
+		ImGui::Begin("Point Lights");
+		for (int i = 0; i < m_PointLights.size(); ++i)
+		{
+			std::string hint = std::to_string(i);
+			ImGui::RadioButton(hint.c_str(), &m_PointLightActivated, i);
+			if (i < m_PointLights.size() - 1)
+			{
+				ImGui::SameLine();
+			}
+		}
+		ImGui::DragFloat3("Position", glm::value_ptr(m_PointLightProps[m_PointLightActivated].position), 0.1f);
+		ImGui::SliderFloat3("Color", glm::value_ptr(m_PointLightProps[m_PointLightActivated].color), 0.0f, 1.0f);
+		ImGui::SliderFloat3("Intensity (a/d/s)", &(m_PointLightProps[m_PointLightActivated].ambient), 0.0f, 1.0f);
+		ImGui::SliderFloat3("Attenuation", &(m_PointLightProps[m_PointLightActivated].constant), 0.0f, 1.0f);
+		ImGui::End();
 
 		ImGui::Begin("Spot Light");
 		ImGui::SliderFloat3("Color", glm::value_ptr(m_SpotLightProp.color), 0.0f, 1.0f);
-		ImGui::SliderFloat3("Intensity (Ambient, Diffuse, and Specular Light)", &(m_SpotLightProp.ambient), 0.0f, 1.0f);
+		ImGui::SliderFloat3("Intensity (a/d/s)", &(m_SpotLightProp.ambient), 0.0f, 1.0f);
 		ImGui::SliderFloat3("Attenuation", &(m_SpotLightProp.constant), 0.0f, 1.0f);
 		ImGui::SliderFloat("Light CutOff", &m_SpotLightProp.cutOff, 0.0f, 90.0f);
 		ImGui::SliderFloat("Light CutOff Epsilon", &m_SpotLightProp.epsilon, 0, 90.0f - m_SpotLightProp.cutOff);
@@ -409,21 +338,19 @@ void Sandbox3D::OnImGuiRender()
 	}
 
 	ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2{ 0, 0 });
-		ImGui::Begin("Viewport");
-		ImVec2 viewportPanelSize = ImGui::GetContentRegionAvail();
-		if (m_ViewportSize != *((glm::vec2*)&viewportPanelSize))
-		{
-			m_Framebuffer->Resize((uint32_t)viewportPanelSize.x, (uint32_t)viewportPanelSize.y);
-			m_ViewportSize = { viewportPanelSize.x, viewportPanelSize.y };
+	ImGui::Begin("Viewport");
+	ImVec2 viewportPanelSize = ImGui::GetContentRegionAvail();
+	if (m_ViewportSize != *((glm::vec2*)&viewportPanelSize))
+	{
+		m_Framebuffer->Resize((uint32_t)viewportPanelSize.x, (uint32_t)viewportPanelSize.y);
+		m_ViewportSize = { viewportPanelSize.x, viewportPanelSize.y };
 
-		}
-		uint32_t textureID = m_Framebuffer->GetColorAttachmentRendererID();
-		LT_WARN("{0}, {1}", viewportPanelSize.x, viewportPanelSize.y);
-		ImGui::Image((void*)textureID, ImVec2{ viewportPanelSize.x, viewportPanelSize.y }, ImVec2{ 0, 1 }, ImVec2{ 1, 0 });
-		ImGui::End();
+	}
+	uint32_t textureID = m_Framebuffer->GetColorAttachmentRendererID();
+	LT_WARN("{0}, {1}", viewportPanelSize.x, viewportPanelSize.y);
+	ImGui::Image((void*)textureID, ImVec2{ viewportPanelSize.x, viewportPanelSize.y }, ImVec2{ 0, 1 }, ImVec2{ 1, 0 });
+	ImGui::End();
 	ImGui::PopStyleVar();
-
-
 
 	m_Framebuffer->Unbind();
 

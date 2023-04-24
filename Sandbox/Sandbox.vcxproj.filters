@@ -4,20 +4,29 @@
     <ClCompile Include="src\Sandbox2D.cpp" />
     <ClCompile Include="src\Sandbox3D.cpp" />
     <ClCompile Include="src\SandboxApp.cpp" />
-    <ClCompile Include="src\Panels\SceneHierarchyPanel.cpp">
-      <Filter>Panels</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Sandbox2D.h" />
     <ClInclude Include="src\Sandbox3D.h" />
-    <ClInclude Include="src\Panels\SceneHierarchyPanel.h">
-      <Filter>Panels</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Filter Include="Panels">
-      <UniqueIdentifier>{543b737e-dfa2-4edd-a15b-f558dfebd7c7}</UniqueIdentifier>
+    <Filter Include="assets">
+      <UniqueIdentifier>{ef76fb31-14a9-4f1a-abb8-21a9665f29e0}</UniqueIdentifier>
     </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="assets\shaders\PBRShader.glsl">
+      <Filter>assets</Filter>
+    </None>
+    <None Include="assets\shaders\lightShader.glsl">
+      <Filter>assets</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="assets\textures\PBRBall\albedo.png" />
+    <Image Include="assets\textures\PBRBall\ao.png" />
+    <Image Include="assets\textures\PBRBall\metallic.png" />
+    <Image Include="assets\textures\PBRBall\normal.png" />
+    <Image Include="assets\textures\PBRBall\roughness.png" />
   </ItemGroup>
 </Project>

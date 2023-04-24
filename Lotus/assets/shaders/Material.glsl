@@ -58,7 +58,8 @@
 		float linear;
 		float quadratic;
 	};
-	#define MAX_POINT_LIGHT 1
+	// TODO(islander): maybe change this in C++ program
+	#define MAX_POINT_LIGHT 4
 	uniform int u_PointLightCount = 0;
 	uniform PointLight u_PointLights[MAX_POINT_LIGHT];
 
@@ -80,7 +81,7 @@
 		float outerCutOff;
 	};
 	uniform int u_SpotLightCount = 0;  
-	uniform SpotLight u_SpotLight;  
+	uniform SpotLight u_SpotLight;  // TODO(islander): should be array 
 
 	// object attributes
 	struct Material
@@ -100,6 +101,7 @@
 
 	vec3 CalcDirectionalLight(DirectionalLight light)
 	{
+		// TODO(islander): optimize out the normalize
 		vec3 lightDir = normalize(-light.direction);
 	
 		// ambient
@@ -181,6 +183,7 @@
 			color.rgb += CalcPointLight(u_PointLights[i]);
 		}
 
+		// TODO(islander): temporarily only one spot light
 		for(int i = 0; i < u_SpotLightCount; ++i)
 		{
 			color.rgb += CalcSpotLight(u_SpotLight);

@@ -48,7 +48,7 @@ namespace Lotus {
 			}
 			if (spotLight)
 			{
-				shader->SetInt("u_SpotLightCount", 1); 
+				shader->SetInt("u_SpotLightCount", 1);  // TODO(islander): as an array
 				spotLight->Bind(shader);
 			}
 		}
@@ -66,6 +66,7 @@ namespace Lotus {
 		auto shader = Lotus::Renderer::GetShaderLib()->Get("Material");
 		mesh.GetMaterial()->Bind(shader);
 		shader->SetMat4("u_Transform", modelTransform);
+		// TODO(islander): validate
 		glm::mat3 modelTransformNormal = glm::transpose(glm::inverse(glm::mat3(modelTransform)));
 		shader->SetMat3("u_TransformNormal", modelTransformNormal);
 

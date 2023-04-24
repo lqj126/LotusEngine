@@ -22,7 +22,16 @@ namespace Lotus {
 	{
 		int width, height, channels;
 		stbi_set_flip_vertically_on_load(1);
-		stbi_uc* data = stbi_load(path.c_str(), &width, &height, &channels, 0);
+		std::string oldStr = "\\";
+		std::string newStr = "/";
+		std::string P = path;
+		size_t pos = P.find(oldStr);
+		while (pos != std::string::npos) {
+			P.replace(pos, oldStr.length(), newStr);
+			pos = P.find(oldStr, pos + newStr.length());
+		}
+
+		stbi_uc* data = stbi_load(P.c_str(), &width, &height, &channels, 0);
 		LT_CORE_ASSERT(data, "Failed to load image!");
 		m_Width = width;
 		m_Height = height;
@@ -73,6 +82,11 @@ namespace Lotus {
 		{
 			m_InternalFormat = GL_RGB8;
 			m_DataFormat = GL_RGB;
+		}
+		else if (m_Channels == 1)
+		{
+			m_InternalFormat = GL_RGB8;
+			m_DataFormat = GL_RED;
 		}
 
 		LT_CORE_ASSERT(m_InternalFormat & m_DataFormat, "Format not supported!");

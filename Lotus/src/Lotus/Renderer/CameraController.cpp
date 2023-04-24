@@ -17,7 +17,7 @@ namespace Lotus {
 		m_Fovy(fovy), m_Near(zNear), m_Far(zFar)
 	{
 		// zMiddle is the default camera position
-		float zMiddle = std::sqrt(m_Near * m_Far);//可以确保默认相机位置在近截面和远截面之间，同时也能够使得相机的可视区域最大化。
+		float zMiddle = std::sqrt(m_Near * m_Far);
 		// set zoom level to the height at z=0
 		float halfHeight = zMiddle * std::tan(glm::radians(m_Fovy) / 2.0f);
 		m_ZoomLevel = std::max(halfHeight, m_ZoomMin);  // clamp

@@ -81,7 +81,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>LT_PLATFORM_WINDOWS;LT_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\Lotus\vendor\spdlog\include;..\Lotus\src;..\Lotus\vendor;..\Lotus\vendor\glm;..\Lotus\vendor\entt\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\Lotus\vendor\spdlog\include;..\Lotus\src;..\Lotus\vendor;..\Lotus\vendor\glm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
       <MinimalRebuild>false</MinimalRebuild>
@@ -138,12 +138,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="src\Panels\SceneHierarchyPanel.h" />
+    <ClInclude Include="src\SandboxPBR.h" />
     <ClInclude Include="src\Sandbox2D.h" />
     <ClInclude Include="src\Sandbox3D.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\Panels\SceneHierarchyPanel.cpp" />
+    <ClCompile Include="src\SandboxPBR.cpp" />
     <ClCompile Include="src\Sandbox2D.cpp" />
     <ClCompile Include="src\Sandbox3D.cpp" />
     <ClCompile Include="src\SandboxApp.cpp" />
@@ -152,6 +152,17 @@
     <ProjectReference Include="..\Lotus\Lotus.vcxproj">
       <Project>{7C219D0D-E835-C5BE-B1B7-681E1D8BC1EF}</Project>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="assets\shaders\lightShader.glsl" />
+    <None Include="assets\shaders\PBRShader.glsl" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="assets\textures\PBRBall\albedo.png" />
+    <Image Include="assets\textures\PBRBall\ao.png" />
+    <Image Include="assets\textures\PBRBall\metallic.png" />
+    <Image Include="assets\textures\PBRBall\normal.png" />
+    <Image Include="assets\textures\PBRBall\roughness.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

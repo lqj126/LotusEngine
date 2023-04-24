@@ -36,6 +36,11 @@ namespace Lotus {
 		{
 			s_RendererAPI->Draw(fisrt, elementCount);
 		}
+
+		inline static void DrawSphere()
+		{
+			s_RendererAPI->DrawSphere();
+		}
 	private:
 		static RendererAPI* s_RendererAPI;
 	};

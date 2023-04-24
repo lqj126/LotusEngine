@@ -13,6 +13,7 @@ namespace Lotus {
 	class Mesh
 	{
 	public:
+		// TODO(islander): pass right values to move, avoid copying
 		Mesh(
 			const std::vector<Vertex>& vertices,
 			const std::vector<uint32_t>& indices,

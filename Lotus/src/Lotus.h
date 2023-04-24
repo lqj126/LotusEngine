@@ -25,9 +25,9 @@
 #include "Lotus/Renderer/Texture.h"
 #include "Lotus/Renderer/VertexArray.h"
 #include "Lotus/Renderer/Vertex.h"
-#include "Lotus/Renderer/Framebuffer.h"
 #include "Lotus/Renderer/Mesh.h"
 #include "Lotus/Renderer/Model.h"
+#include "Lotus/Renderer/Framebuffer.h"
 
 #include "Lotus/Renderer/Camera.h"
 #include "Lotus/Renderer/CameraController.h"
@@ -36,10 +36,4 @@
 
 #include "Lotus/Renderer/Light.h"
 
-// ---Scene-----------------------
-#include "Lotus/Scene/Scene.h"
-#include "Lotus/Scene/Components.h"
-#include "Lotus/Scene/Entity.h"
-
-// ---IMUI-----------------------
 #include "Lotus/ImGui/ImGuiLayer.h"
