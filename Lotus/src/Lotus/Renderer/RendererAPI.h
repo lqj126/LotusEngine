@@ -2,8 +2,6 @@
 
 #include <glm/glm.hpp>
 
-#include "VertexArray.h"
-
 namespace Lotus {
 
 	class RendererAPI

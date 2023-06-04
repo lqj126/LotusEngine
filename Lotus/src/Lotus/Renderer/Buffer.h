@@ -30,7 +30,7 @@ namespace Lotus {
 
 	struct BufferElement
 	{
-		std::string Name;  // TODO(islander): for debug purpose
+		std::string Name;
 		ShaderDataType Type;
 		uint32_t Size;
 		uint32_t Offset;

@@ -13,7 +13,7 @@ namespace Lotus {
 		enum LightType {
 			Directional = 0,
 			Point = 1,
-			Spot = 2
+			Spot = 2,
 		};
 	public:
 		Light(
@@ -51,6 +51,32 @@ namespace Lotus {
 		LightType m_Type;
 		glm::vec3 m_Color;
 		float m_AmbientIntensity, m_DiffuseIntensity, m_SpecularIntensity;
+	};
+
+	class Light_PBR
+	{
+	public:
+		enum LightType {Point = 0};
+	public:
+		Light_PBR(
+			const glm::vec3& color,
+			LightType type
+		) :
+			m_Color(color), m_Type(type)
+		{}
+
+		virtual ~Light_PBR() = default;
+
+		//virtual void Bind(const Ref<Shader>& shader, uint32_t lightIndex) = 0;
+
+		inline const glm::vec3& GetColor() const { return m_Color; }
+		inline void SetColor(const glm::vec3& color) { m_Color = color; }
+
+		inline LightType GetType() const { return m_Type; }
+
+	private:
+		LightType m_Type;
+		glm::vec3 m_Color;
 	};
 
 	class DirectionalLight : public Light
@@ -166,6 +192,28 @@ namespace Lotus {
 		float m_CutOff, m_OuterCutOff;
 		float m_Constant, m_Linear, m_Quadratic;
 		glm::vec3 m_Direction;
+		glm::vec3 m_Position;
+	};
+
+	class PointLight_PBR : public Light_PBR
+	{
+	public:
+		// illumination range = 50 By default
+		PointLight_PBR(
+			const glm::vec3& color, const glm::vec3& position
+		) :
+			Light_PBR(color, Point),
+			m_Position(position)
+		{}
+
+		inline const glm::vec3& GetPosition() const { return m_Position; }
+		inline void SetPosition(const glm::vec3& position)
+		{
+			m_Position = position;
+		}
+
+		void Bind(const Ref<Shader>& shader, int index) const;
+	private:
 		glm::vec3 m_Position;
 	};
 }

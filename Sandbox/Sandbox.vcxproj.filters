@@ -4,14 +4,31 @@
     <ClCompile Include="src\Sandbox2D.cpp" />
     <ClCompile Include="src\Sandbox3D.cpp" />
     <ClCompile Include="src\SandboxApp.cpp" />
+    <ClCompile Include="src\SandboxPBR.cpp" />
+    <ClCompile Include="src\SandboxPBRModel.cpp" />
+    <ClCompile Include="SandboxIBL.cpp" />
+    <ClCompile Include="src\SandboxManager.cpp" />
+    <ClCompile Include="Panels\SceneHierarchyPanel.cpp">
+      <Filter>Panels</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Sandbox2D.h" />
     <ClInclude Include="src\Sandbox3D.h" />
+    <ClInclude Include="src\SandboxPBR.h" />
+    <ClInclude Include="src\SandboxPBRModel.h" />
+    <ClInclude Include="SandboxIBL.h" />
+    <ClInclude Include="src\SandboxManager.h" />
+    <ClInclude Include="Panels\SceneHierarchyPanel.h">
+      <Filter>Panels</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="assets">
       <UniqueIdentifier>{ef76fb31-14a9-4f1a-abb8-21a9665f29e0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Panels">
+      <UniqueIdentifier>{7a23ac72-7754-4d21-a676-33e03ed97693}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -21,6 +38,7 @@
     <None Include="assets\shaders\lightShader.glsl">
       <Filter>assets</Filter>
     </None>
+    <None Include="assets\shaders\PBRModelShader.glsl" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="assets\textures\PBRBall\albedo.png" />

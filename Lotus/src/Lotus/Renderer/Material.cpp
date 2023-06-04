@@ -52,5 +52,67 @@ namespace Lotus {
 		m_DiffuseMap->Bind(s_DiffuseSlot);
 	}
 
+	Material_PBR::Material_PBR(
+		Ref<Texture2D> albedoMap,
+		Ref<Texture2D> normalMap,
+		Ref<Texture2D> metallicMap,
+		Ref<Texture2D> roughnessMap,
+		Ref<Texture2D> aoMap
+	)
+	{
+		// create the black texture as default map
+		auto blackTexture = Texture2D::CreateFlatColor({ 0.0f, 0.0f, 0.0f, 1.0f });
+		m_AlbedoMap = (albedoMap) ? albedoMap : blackTexture;
+		m_NormalMap = (normalMap) ? normalMap : blackTexture;
+		m_MetallicMap = (metallicMap) ? metallicMap : blackTexture;
+		m_RoughnessMap = (roughnessMap) ? roughnessMap : blackTexture;
+		m_AoMap = (aoMap) ? aoMap : blackTexture;
+	}
+
+	void Material_PBR::SetTextureMap(Ref<Texture2D> texture, Texture::Type_PBR type)
+	{
+		switch (type)
+		{
+		case Texture::Type_PBR::Albedo:
+			SetAlbedoMap(texture);
+			break;
+		case Texture::Type_PBR::Normal:
+			SetNormalMap(texture);
+			break;
+		case Texture::Type_PBR::Metallic:
+			SetMetallicMap(texture);
+			break;
+		case Texture::Type_PBR::Roughness:
+			SetRoughnessMap(texture);
+			break;
+		case Texture::Type_PBR::Ao:
+			SetAoMap(texture);
+			break;
+		default:
+			LT_CORE_ASSERT(false, "Unknown texture type!");
+		}
+	}
+
+	void Material_PBR::Bind(const Ref<Shader>& shader)
+	{
+		shader->Bind();
+
+		// albedo
+		LT_CORE_ASSERT(m_AlbedoMap, "Material has no AlbedoMap!");
+		m_AlbedoMap->Bind(s_AlbedoSlot);
+		shader->SetInt("albedoMap", s_AlbedoSlot);
+		// normal
+		m_NormalMap->Bind(s_NormalSlot);
+		shader->SetInt("normalMap", s_NormalSlot);
+		// metallic
+		m_MetallicMap->Bind(s_MetallicSlot);
+		shader->SetInt("metallicMap", s_MetallicSlot);
+		// roughness
+		m_RoughnessMap->Bind(s_RoughnessSlot);
+		shader->SetInt("roughnessMap", s_RoughnessSlot);
+		// ao
+		m_AoMap->Bind(s_AoSlot);
+		shader->SetInt("aoMap", s_AoSlot);
+	}
 }
 

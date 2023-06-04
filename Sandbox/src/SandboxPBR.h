@@ -30,7 +30,7 @@ namespace Lotus
 
 		ShaderLibrary m_ShaderLibrary;
 		Ref<Shader> PBRShader;
-
+		bool LoadTexture = true;
 		Ref<Texture2D> albedo;
 		Ref<Texture2D> normal;
 		Ref<Texture2D> metallic;

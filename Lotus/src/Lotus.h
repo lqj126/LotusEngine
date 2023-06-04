@@ -18,6 +18,7 @@
 
 // ---Renderer-----------------------
 #include "Lotus/Renderer/Renderer.h"
+#include "Lotus/Renderer/Renderer2D.h"
 #include "Lotus/Renderer/RenderCommand.h"
 
 #include "Lotus/Renderer/Buffer.h"
@@ -35,5 +36,10 @@
 #include "Lotus/Renderer/OrthographicCameraController.h"
 
 #include "Lotus/Renderer/Light.h"
+
+// ---ECS-----------------------------
+#include "Lotus/Scene/Scene.h"
+#include "Lotus/Scene/Components.h"
+#include "Lotus/Scene/Entity.h"
 
 #include "Lotus/ImGui/ImGuiLayer.h"

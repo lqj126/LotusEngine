@@ -45,6 +45,12 @@ namespace Lotus {
 		stbi_image_free(data);
 	}
 
+	OpenGLTexture2D::OpenGLTexture2D(uint32_t width, uint32_t height, const uint32_t RendererID)
+		:m_RendererID(RendererID), m_Width(width), m_Height(height), m_Channels(4)
+	{
+		//TODO: Set Data
+	}
+
 	OpenGLTexture2D::~OpenGLTexture2D()
 	{
 		glDeleteTextures(1, &m_RendererID);
@@ -59,6 +65,11 @@ namespace Lotus {
 	void OpenGLTexture2D::Bind(uint32_t slot) const
 	{
 		glBindTextureUnit(slot, m_RendererID);
+	}
+
+	void OpenGLTexture2D::Unbind() const
+	{
+		glBindTexture(GL_TEXTURE_2D, 0);
 	}
 
 	void OpenGLTexture2D::SetTexWrapS(int param)

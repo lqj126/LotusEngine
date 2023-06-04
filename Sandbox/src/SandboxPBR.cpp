@@ -17,7 +17,7 @@ namespace Lotus
 
 	void SandboxPBR::OnAttach()
 	{
-
+		Renderer_PBR::Init();
 		m_CameraController.SetPosition({ 0.0f, 0.0f, 5.0f });
 		PBRShader = m_ShaderLibrary.Load("assets/shaders/PBRShader.glsl");
 		//s_ShaderLibrary->Load("H:/Dev/Lotus/Sandbox/assets/shaders/PBRShader.glsl");
@@ -64,11 +64,23 @@ namespace Lotus
 		PBRShader->SetMat4("view", view);
 		PBRShader->SetFloat3("camPos", m_CameraController.GetCamera().GetPosition());
 
-		albedo->Bind(0);
-		normal->Bind(1);
-		metallic->Bind(2);
-		roughness->Bind(3);
-		ao->Bind(4);
+		if (LoadTexture)
+		{
+			albedo->Bind(0);
+			normal->Bind(1);
+			metallic->Bind(2);
+			roughness->Bind(3);
+			ao->Bind(4);
+		}
+		else
+		{
+			albedo->Unbind();
+			normal->Bind(1);
+			metallic->Bind(2);
+			roughness->Bind(3);
+			ao->Bind(4);
+		}
+
 
 		glm::mat4 model = glm::mat4(1.0f);
 		for (int row = 0; row < nrRows; ++row)
@@ -145,7 +157,7 @@ namespace Lotus
 			// We cannot preserve the docking relationship between an active window and an inactive docking, otherwise 
 			// any change of dockspace/settings would lead to windows being stuck in limbo and never being visible.
 			ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0.0f, 0.0f));
-			ImGui::Begin("DockSpace Demo", &dockspaceOpen, window_flags);
+			ImGui::Begin("DockSpace", &dockspaceOpen, window_flags);
 			ImGui::PopStyleVar();
 
 			if (opt_fullscreen)
@@ -194,6 +206,11 @@ namespace Lotus
 		ImGui::Image((void*)textureID, ImVec2{ viewportPanelSize.x, viewportPanelSize.y }, ImVec2{ 0, 1 }, ImVec2{ 1, 0 });
 		ImGui::End();
 		ImGui::PopStyleVar();
+
+		ImGui::Begin("Texture Option");
+		ImGui::Checkbox("Loaded Texture", &LoadTexture);
+		ImGui::End();
+
 
 		m_Framebuffer->Unbind();
 

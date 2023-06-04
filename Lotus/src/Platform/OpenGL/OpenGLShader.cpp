@@ -200,7 +200,7 @@ namespace Lotus {
 				glGetShaderiv(shader, GL_INFO_LOG_LENGTH, &maxLength);
 
 				std::vector<GLchar> infoLog(maxLength);
-				//glGetShaderInfoLog(shader, maxLength, &maxLength, &infoLog[0]);
+				glGetShaderInfoLog(shader, maxLength, &maxLength, &infoLog[0]);
 
 				glDeleteShader(shader);
 

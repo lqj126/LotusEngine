@@ -28,7 +28,7 @@ namespace Lotus {
 	void Camera::SetRotation(const glm::quat& rotationQuat)
 	{
 		m_RotationQuat = rotationQuat;
-		glm::mat3 cameraRotationMatrix = glm::mat3_cast(rotationQuat);
+		glm::mat3 cameraRotationMatrix = glm::mat3_cast(rotationQuat);//convert the quaternion rotationQuat to a rotation matrix.
 		m_CameraX = cameraRotationMatrix * glm::vec3(1.0f, 0.0f, 0.0f);
 		m_CameraY = cameraRotationMatrix * glm::vec3(0.0f, 1.0f, 0.0f);
 		m_CameraZ = cameraRotationMatrix * glm::vec3(0.0f, 0.0f, 1.0f);

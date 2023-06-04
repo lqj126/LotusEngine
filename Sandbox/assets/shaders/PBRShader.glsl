@@ -38,17 +38,13 @@
     uniform sampler2D aoMap;
 
     // lights
-    uniform vec3 lightPositions[4];
-    uniform vec3 lightColors[4];
+    uniform vec3 lightPositions[1];
+    uniform vec3 lightColors[1];
 
     uniform vec3 camPos;
 
     const float PI = 3.14159265359;
-    // ----------------------------------------------------------------------------
-    // Easy trick to get tangent-normals to world-space to keep PBR code simplified.
-    // Don't worry if you don't get what's going on; you generally want to do normal 
-    // mapping the usual way for performance anways; I do plan make a note of this 
-    // technique somewhere later in the normal mapping tutorial.
+
     vec3 getNormalFromMap()
     {
         vec3 tangentNormal = texture(normalMap, TexCoords).xyz * 2.0 - 1.0;
@@ -65,7 +61,7 @@
 
         return normalize(TBN * tangentNormal);
     }
-    // ----------------------------------------------------------------------------
+
     float DistributionGGX(vec3 N, vec3 H, float roughness)
     {
         float a = roughness*roughness;
@@ -79,7 +75,7 @@
 
         return nom / denom;
     }
-    // ----------------------------------------------------------------------------
+
     float GeometrySchlickGGX(float NdotV, float roughness)
     {
         float r = (roughness + 1.0);
@@ -90,7 +86,7 @@
 
         return nom / denom;
     }
-    // ----------------------------------------------------------------------------
+
     float GeometrySmith(vec3 N, vec3 V, vec3 L, float roughness)
     {
         float NdotV = max(dot(N, V), 0.0);
@@ -100,12 +96,12 @@
 
         return ggx1 * ggx2;
     }
-    // ----------------------------------------------------------------------------
+
     vec3 fresnelSchlick(float cosTheta, vec3 F0)
     {
         return F0 + (1.0 - F0) * pow(clamp(1.0 - cosTheta, 0.0, 1.0), 5.0);
     }
-    // ----------------------------------------------------------------------------
+
     void main()
     {		
         vec3 albedo     = pow(texture(albedoMap, TexCoords).rgb, vec3(2.2));
@@ -116,8 +112,6 @@
         vec3 N = getNormalFromMap();
         vec3 V = normalize(camPos - WorldPos);
 
-        // calculate reflectance at normal incidence; if dia-electric (like plastic) use F0 
-        // of 0.04 and if it's a metal, use the albedo color as F0 (metallic workflow)    
         vec3 F0 = vec3(0.04); 
         F0 = mix(F0, albedo, metallic);
 
@@ -141,33 +135,20 @@
             float denominator = 4.0 * max(dot(N, V), 0.0) * max(dot(N, L), 0.0) + 0.0001; // + 0.0001 to prevent divide by zero
             vec3 specular = numerator / denominator;
         
-            // kS is equal to Fresnel
             vec3 kS = F;
-            // for energy conservation, the diffuse and specular light can't
-            // be above 1.0 (unless the surface emits light); to preserve this
-            // relationship the diffuse component (kD) should equal 1.0 - kS.
             vec3 kD = vec3(1.0) - kS;
-            // multiply kD by the inverse metalness such that only non-metals 
-            // have diffuse lighting, or a linear blend if partly metal (pure metals
-            // have no diffuse light).
             kD *= 1.0 - metallic;	  
 
-            // scale light by NdotL
             float NdotL = max(dot(N, L), 0.0);        
 
-            // add to outgoing radiance Lo
             Lo += (kD * albedo / PI + specular) * radiance * NdotL;  // note that we already multiplied the BRDF by the Fresnel (kS) so we won't multiply by kS again
         }   
     
-        // ambient lighting (note that the next IBL tutorial will replace 
-        // this ambient lighting with environment lighting).
         vec3 ambient = vec3(0.03) * albedo * ao;
     
         vec3 color = ambient + Lo;
 
-        // HDR tonemapping
         color = color / (color + vec3(1.0));
-        // gamma correct
         color = pow(color, vec3(1.0/2.2)); 
 
         FragColor = vec4(color, 1.0);

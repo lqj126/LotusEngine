@@ -1,5 +1,6 @@
 #pragma once
 
+// from glfw
 #define LT_DEPTH_BUFFER_BIT 0x00000100
 #define LT_STENCIL_BUFFER_BIT 0x00000400
 #define LT_COLOR_BUFFER_BIT 0x00004000

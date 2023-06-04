@@ -20,7 +20,7 @@ namespace Lotus {
 		float zMiddle = std::sqrt(m_Near * m_Far);
 		// set zoom level to the height at z=0
 		float halfHeight = zMiddle * std::tan(glm::radians(m_Fovy) / 2.0f);
-		m_ZoomLevel = std::max(halfHeight, m_ZoomMin);  // clamp
+		m_ZoomLevel = std::max(halfHeight, m_ZoomMin); 
 
 		if (m_IsPerspective)
 		{
@@ -44,6 +44,16 @@ namespace Lotus {
 		else if (Input::IsKeyPressed(LT_KEY_S))
 		{
 			m_CameraPosition += m_Camera->GetZAxis() * (m_CameraTranslationSpeedZ * ts);
+			m_Camera->SetPosition(m_CameraPosition);
+		}
+		else if (Input::IsKeyPressed(LT_KEY_A))
+		{
+			m_CameraPosition -= m_Camera->GetXAxis() * (m_CameraTranslationSpeedZ * ts);
+			m_Camera->SetPosition(m_CameraPosition);
+		}
+		else if (Input::IsKeyPressed(LT_KEY_D))
+		{
+			m_CameraPosition += m_Camera->GetXAxis() * (m_CameraTranslationSpeedZ * ts);
 			m_Camera->SetPosition(m_CameraPosition);
 		}
 	}
@@ -185,7 +195,8 @@ namespace Lotus {
 			// horizental rotation: around the current y axis
 			glm::quat rotationY = glm::angleAxis(glm::radians(-dx * m_CameraRotationSpeedXY), m_Camera->GetYAxis());
 			// vertical rotation: around the world x axis
-			glm::quat rotationX = glm::angleAxis(glm::radians(-dy * m_CameraRotationSpeedXY), glm::vec3(1.0f, 0.0f, 0.0f));
+			glm::quat rotationX = glm::angleAxis(glm::radians(-dy * m_CameraRotationSpeedXY), m_Camera->GetXAxis());
+			// the total angle of rotation needed
 			glm::quat addedRotation = rotationX * rotationY;
 
 			// update the view projection

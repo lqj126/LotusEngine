@@ -31,7 +31,6 @@
 	in vec2 v_TexCoord;
 	in vec3 v_Normal;
 	in vec3 v_FragPosition;
-
 	uniform vec3 u_ViewPosition;
 
 	struct DirectionalLight
@@ -58,7 +57,6 @@
 		float linear;
 		float quadratic;
 	};
-	// TODO(islander): maybe change this in C++ program
 	#define MAX_POINT_LIGHT 4
 	uniform int u_PointLightCount = 0;
 	uniform PointLight u_PointLights[MAX_POINT_LIGHT];
@@ -81,7 +79,7 @@
 		float outerCutOff;
 	};
 	uniform int u_SpotLightCount = 0;  
-	uniform SpotLight u_SpotLight;  // TODO(islander): should be array 
+	uniform SpotLight u_SpotLight;
 
 	// object attributes
 	struct Material
@@ -101,7 +99,6 @@
 
 	vec3 CalcDirectionalLight(DirectionalLight light)
 	{
-		// TODO(islander): optimize out the normalize
 		vec3 lightDir = normalize(-light.direction);
 	
 		// ambient
@@ -170,7 +167,8 @@
 
 		return (ambient + diffuse + specular) * attenuation * intensity;
 	}
-
+	
+	uniform int PostPorcess;
 	void main()
 	{
 		color = vec4(0.0, 0.0, 0.0, 1.0);  // result buffer
@@ -183,7 +181,6 @@
 			color.rgb += CalcPointLight(u_PointLights[i]);
 		}
 
-		// TODO(islander): temporarily only one spot light
 		for(int i = 0; i < u_SpotLightCount; ++i)
 		{
 			color.rgb += CalcSpotLight(u_SpotLight);
@@ -195,4 +192,14 @@
 	
 		// clip to 1.0
 		color = min(color, vec4(1.0));
+
+		if(PostPorcess == 1)
+		{
+			color.rgb = vec3(1.0) - color.rgb;
+		}
+		if(PostPorcess == 2)
+		{
+			float average = 0.2126 * color.r + 0.7152 * color.g + 0.0722 * color.b;
+			color = vec4(average, average, average, 1.0);
+		}
 	}

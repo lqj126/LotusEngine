@@ -55,6 +55,9 @@
     <Filter Include="src\Lotus\Scene">
       <UniqueIdentifier>{f1d81c9f-5d8a-4311-b245-b084900b8668}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Lotus\Renderer\PBRModel">
+      <UniqueIdentifier>{cae759c3-84ca-4fee-823d-11bd6823fdb3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Lotus.h">
@@ -1458,6 +1461,11 @@
     <ClInclude Include="vendor\entt\include\entt.hpp">
       <Filter>vendor</Filter>
     </ClInclude>
+    <ClInclude Include="src\Lotus\Renderer\IBLTemp.h" />
+    <ClInclude Include="src\Lotus\Scene\Components.h" />
+    <ClInclude Include="src\Lotus\Scene\Entity.h" />
+    <ClInclude Include="src\Lotus\Scene\Scene.h" />
+    <ClInclude Include="src\Lotus\Renderer\PostPorcess.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Lotus\Core\Application.cpp">
@@ -1565,6 +1573,16 @@
     <ClCompile Include="src\Lotus\Renderer\Renderer2D.cpp">
       <Filter>src\Lotus\Renderer</Filter>
     </ClCompile>
-    <ClCompile Include="src\Platform\OpenGL\DrawSphere.h" />
+    <ClCompile Include="src\Lotus\Renderer\IBLTemp.cpp" />
+    <ClCompile Include="src\Lotus\Scene\Entity.cpp" />
+    <ClCompile Include="src\Lotus\Scene\Scene.cpp" />
+    <ClCompile Include="src\Lotus\Renderer\PostPorcess.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="assets\shaders\PBRShader.glsl">
+      <Filter>src\Lotus\Renderer\PBRModel</Filter>
+    </None>
+    <None Include="assets\shaders\PBRModelShader.glsl" />
+    <None Include="assets\shaders\PostProsess\PostProcessingShader.glsl" />
   </ItemGroup>
 </Project>

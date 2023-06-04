@@ -20,6 +20,8 @@ namespace Lotus {
 		// Primitives
 		static void DrawQuad(const glm::vec2& position, const glm::vec2& size, const Ref<Material>& material);
 		static void DrawQuad(const glm::vec3& position, const glm::vec2& size, const Ref<Material>& material);
+
+		static void DrawScreen(const glm::vec3& position, const glm::vec2& size, const uint32_t& textureID);
 	};
 
 }

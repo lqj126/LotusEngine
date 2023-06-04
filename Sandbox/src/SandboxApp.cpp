@@ -3,14 +3,15 @@
 #include "Sandbox2D.h"
 #include "Sandbox3D.h"
 #include "SandboxPBR.h"
-
+#include "SandboxPBRModel.h"
+#include "SandboxManager.h"
 
 class Sandbox : public Lotus::Application
 {
 public:
 	Sandbox()
 	{
-		PushLayer(new Lotus::SandboxPBR());
+		PushLayer(new Lotus::Sandbox3D());
 	}
 
 	~Sandbox()

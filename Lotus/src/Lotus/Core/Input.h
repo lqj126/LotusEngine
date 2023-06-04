@@ -19,7 +19,7 @@ namespace Lotus {
 		inline static float GetMouseX() { return s_Instance->GetMouseXImpl(); }
 		inline static float GetMouseY() { return s_Instance->GetMouseYImpl(); }
 	protected:
-		virtual bool IsKeyPressedImpl(int keycode) = 0;
+		virtual bool IsKeyPressedImpl(int keycode) = 0;// check Implementation
 
 		virtual bool IsMouseButtonPressedImpl(int button) = 0;
 		virtual std::pair<float, float> GetMousePositionImpl() = 0;

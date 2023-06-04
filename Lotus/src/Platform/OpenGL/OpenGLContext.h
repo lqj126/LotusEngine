@@ -13,6 +13,7 @@ namespace Lotus {
 
 		virtual void Init() override;
 		virtual void SwapBuffers() override;
+		virtual GLFWwindow* GetGLFWwindow() override;
 	private:
 		GLFWwindow* m_WindowHandle;
 	};
